@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="document document_theme_dark" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Интерактивная соцсеть для обмена фотографиями из путешествий">
+    <meta name="author" content="Гондарев Алексей">
+    <meta name="keywords" content="Путешествия,Фотографии,Поездка,Отпуск">
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./css/style.css"> 
+</head>
+<body class="page">
+    <div class="page__container">
+        <header class="header">
+            <img class="header__logo" src="./images/Vector.svg" alt="Логотип сервиса Место">
+        </header>
+        <main class="main content">
+            <section class="profile content__section">
+                <div class="profile__container">
+                    <img class="profile__avatar" src="./images/image%20(1).jpg" alt="Аватар профиля">
+                    <div class="profile__info">
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <h2 class="profile__subtitle">Исследователь океана</h2>
+                        <button type="button" class="profile__eddit-button" title="Редактировать профиль">
+                            <img class="profile__logo-eddit-button" src="./images/Vector%20(2).svg" alt="кнопка редактерирования профиля">
+                        </button>
+                </div>
+                </div>
+                <button type="button" class="profile__add-button" title="Добавить фотографию">
+                    <img class="profile__logo-add-button" src="./images/Vector%20(1).svg" alt="кнопка добавления фото">
+                </button>    
+            </section>
+            <section class="elements">
+                <ul class="elements__container">
+                    <li class="elements__card">
+                        <img class="elements__image" src="./images/kirill-pershin-1088404-unsplash%20(1)%20(1).jpg" alt="фотокарточка профиля">
+                        <div class="elements__description">
+                            <h2 class="elements__text">Карачаевск</h2>
+                            <button type="button" class="elements__like-button" title="Поставить лайк">
+                                <img class="elements__like" src="./images/Vector%20(Stroke).svg" alt="символ лайка">
+                            </button>    
+                        </div>
+                    </li>
+                    <li class="elements__card">
+                        <img class="elements__image" src="./images/kirill-pershin-1404681-unsplash%20(1)%20(1).jpg" alt="фотокарточка профиля">
+                        <div class="elements__description">
+                            <h2 class="elements__text">Гора Эльбрус</h2>
+                            <button type="button" class="elements__like-button" title="Поставить лайк">
+                                <img class="elements__like" src="./images/Vector%20(Stroke).svg" alt="символ лайка">
+                            </button>
+                        </div>
+                    </li>
+                    <li class="elements__card">
+                        <img class="elements__image" src="./images/kirill-pershin-1556355-unsplash%20(1)%20(1).jpg" alt="фотокарточка профиля">
+                        <div class="elements__description">
+                            <h2 class="elements__text">Домбай</h2>
+                            <button type="button" class="elements__like-button" title="Поставить лайк">
+                                <img class="elements__like" src="./images/Vector%20(Stroke).svg" alt="символ лайка">
+                            </button>
+                        </div>
+                    </li>
+                    <li class="elements__card">
+                        <img class="elements__image" src="./images/kirill-pershin-1404681-unsplash%20(1)%20(1).jpg" alt="фотокарточка профиля">
+                        <div class="elements__description">
+                            <h2 class="elements__text">Гора Эльбрус</h2>
+                            <button type="button" class="elements__like-button" title="Поставить лайк">
+                                <img class="elements__like" src="./images/Vector%20(Stroke).svg" alt="символ лайка">
+                            </button>
+                        </div>
+                    </li>
+                    <li class="elements__card">
+                        <img class="elements__image" src="./images/kirill-pershin-1556355-unsplash%20(1)%20(1).jpg" alt="фотокарточка профиля">
+                        <div class="elements__description">
+                            <h2 class="elements__text">Домбай</h2>
+                            <button type="button" class="elements__like-button" title="Поставить лайк">
+                                <img class="elements__like" src="./images/Vector%20(Stroke).svg" alt="символ лайка">
+                            </button>
+                        </div>
+                    </li>
+                    <li class="elements__card">
+                        <img class="elements__image" src="./images/kirill-pershin-1088404-unsplash%20(1)%20(1).jpg" alt="фотокарточка профиля">
+                        <div class="elements__description">
+                            <h2 class="elements__text">Карачаево-Черкессия</h2>
+                            <button type="button" class="elements__like-button" title="Поставить лайк">
+                                <img class="elements__like" src="./images/Vector%20(Stroke).svg" alt="символ лайка">
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+        <footer class="footer">
+            <p class="footer__copyright">&COPY; 2022 Mesto Russia</p>
+        </footer>
+        <div class="popup">
+            <div class="popup__container popup__container_opened">
+                <button type="button" class="popup__close">
+                    <img src="./images/Close%20Icon.svg" alt="Символ закрытие окна">
+                </button>
+                <form class="popup__form">
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <fieldset class="popup__user-info">
+                        <input type="text" name="username" placeholder="Жак-Ив Кусто" required class="popup__user-name">
+                        <input type="text" name="description" placeholder="Исследователь океана" required class="popup__user-description">
+                    </fieldset>
+                    <button type="submit" value="Сохранить" class="popup__button">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

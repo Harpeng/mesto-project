@@ -1,0 +1,14 @@
+.profile__logo-eddit-button{
+    max-width: 10px;
+    max-height: 10px;
+}
+
+@media screen and (max-width:720px){
+    .profile__logo-eddit-button{
+        max-width: 7.5px;
+        max-height: 7.5px;
+        padding: 0;
+        margin:5.25px auto;
+        align-self: center;
+    }
+}

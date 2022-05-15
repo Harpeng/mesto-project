@@ -1,0 +1,22 @@
+.popup__close{
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border: none;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background-color: transparent;
+    outline: none;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+}
+
+@media screen and (max-width: 720px){
+.popup__close {
+    height: 20px;
+    right: 10px;
+    top: -45px;
+    width: 20px;
+}
+}

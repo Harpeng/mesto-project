@@ -1,0 +1,9 @@
+.elements__like-button{
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+    background-color: transparent;
+}
+

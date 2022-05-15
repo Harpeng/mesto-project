@@ -1,0 +1,25 @@
+.profile__eddit-button{
+    background-color: black;
+    max-width: 24px;
+    max-height: 24px;
+    border: 1px solid #FFFFFF;
+    cursor: pointer;
+    box-sizing: border-box;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    align-self: end;
+    margin-bottom: 8px;
+}
+
+.profile__eddit-button:hover{
+    opacity: 0.6;
+    transition:.3s linear;
+}
+
+@media screen and (max-width:720px){
+    .profile__eddit-button{
+        max-width: 18px;
+        max-height: 18px;
+        padding: 0;
+    }
+}
