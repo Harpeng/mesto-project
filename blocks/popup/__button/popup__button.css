@@ -1,7 +1,8 @@
-.popup__button{
+.popup__button {
     background-color: black;
     color: white;
     width: 100%;
+    max-width: 358px;
     min-height: 50px;
     border-radius: 2px;
     font-size: 18px;
@@ -10,21 +11,25 @@
     text-align: center;
     justify-self: center;
     align-self: center;
-    margin: 0 auto 36px auto;
+    margin: 0 36px 37px 36px;
     cursor: pointer;
     padding: 0;
     border: none;
-}
-
-.popup__button:hover{
-    opacity: 0.8;
     transition: 0.5s linear;
 }
 
-@media screen and (max-width:720px){
-    .popup__button{
+.popup__button:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width:720px) {
+    .popup__button {
         max-width: 238px;
-        display: block;
-        
+        display: block;       
+        margin: 0 auto;
+        margin-bottom: 25px;
+        min-height: 46px;
+        font-size: 14px;
+        line-height: 17px;
     }
 }

@@ -1,19 +1,19 @@
-.profile__info{
+.profile__info {
     align-self: center;
     max-width: 366px;
     display: grid;
     column-gap: 18px;
     row-gap: 7px;
     grid-template-columns: 1fr 24px;
-    max-height: 73px;
     margin-left: 30px;
-
 }
 
 @media screen and (max-width:720px) {
-    .profile__info{
-        min-height: 54px;
+    .profile__info {
         max-width: 282px;
-        margin: 26px auto 36px;
+        margin: 26px auto 33px;
+        column-gap: 10px;
+        row-gap: 8px;
+        width: 100%;
     }
 }

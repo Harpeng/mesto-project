@@ -1,0 +1,43 @@
+.popup__user-data {
+    font-family: inherit;
+    border: none;
+    border-bottom: 1px solid #000000;
+    opacity: 0.2;
+    margin-bottom: 30px;
+    width: 100%;
+    min-height: 27px;
+    cursor: pointer;
+    padding: 0;
+    max-width: 338px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+}
+
+.popup__user-data:last-of-type {
+    margin-bottom: 45px;
+}
+
+.popup__user-data:focus {
+    color: black;
+    opacity: 1;
+}
+
+.popup__user-data::-webkit-input-placeholder {
+    color:black;
+}
+
+.popup__user-data::-moz-placeholder {
+    color:black;
+}
+
+.popup__user-data::-ms-input-placeholder {
+    color:black;
+}
+
+@media screen and (max-width:720px) {
+    .popup__user-data {
+        font-size: 14px;
+        line-height: 17px;
+    }  
+}

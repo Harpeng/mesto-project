@@ -1,10 +1,10 @@
-.elements{
-    margin: 50px auto 67px auto;
-    max-width: 884px;
+.elements {
+    margin: 51px auto 67px auto;
+    max-width: 880px;
 }
 
-@media screen and (max-width:720px){
-    .elements{
+@media screen and (max-width:720px) {
+    .elements {
         margin: 36px 19px 48px 19px;
         max-width: calc(100% - 38px);
         justify-self: center;
