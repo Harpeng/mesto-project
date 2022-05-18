@@ -9,5 +9,6 @@
     overflow: hidden;
     position: fixed;
     top: 0px;
+    left: 0;
     font-family: inherit;
 }

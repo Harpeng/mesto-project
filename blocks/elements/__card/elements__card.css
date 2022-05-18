@@ -1,8 +1,8 @@
 .elements__card {
     background-color: #ffffff;
     border-radius: 10px;
-    max-width: 282px; 
     min-height: 361px;
+    width: 100%;
 }
 
 @media screen and (max-width:720px) {

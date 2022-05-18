@@ -13,6 +13,7 @@
     background-repeat: no-repeat;
     background-position: center;
     transition: .3s linear;
+    border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -23,6 +24,7 @@
     .profile__add-button {
         width: 100%;
         border-radius: 2px;
-        max-width: 382px;       
+        max-width: 382px;    
+        background-image: url(../../../images/Vector\%20\(4\).svg);   
     }
 }

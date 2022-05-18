@@ -1,8 +1,7 @@
 .popup__user-data {
     font-family: inherit;
     border: none;
-    border-bottom: 1px solid #000000;
-    opacity: 0.2;
+    border-bottom: 1px solid rgba(0,0,0,.2);
     margin-bottom: 30px;
     width: 100%;
     min-height: 27px;
@@ -35,9 +34,4 @@
     color:black;
 }
 
-@media screen and (max-width:720px) {
-    .popup__user-data {
-        font-size: 14px;
-        line-height: 17px;
-    }  
-}
+
