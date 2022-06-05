@@ -22,7 +22,7 @@
                     <div class="profile__info">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
                         <p class="profile__subtitle">Исследователь океана</p>
-                        <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
+                        <button type="button" class="profile__edit-button"  aria-label="Редактировать профиль"></button>
                     </div>
                 </div>
                 <button type="button" class="profile__add-button" aria-label="Добавить фотографию"></button>    
@@ -77,19 +77,45 @@
         <footer class="footer">
             <p class="footer__copyright">&COPY; 2022 Mesto Russia</p>
         </footer>
-        <div class="popup popup_is-opened">
+        <div class="popup">
             <div class="popup__container">
-                <button type="button" class="popup__close" aria-label="закрыть окно"></button>
+                <button type="button" class="popup__close"  aria-label="закрыть окно"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form class="popup__form" name="info">
                     <fieldset class="popup__user-info">
-                        <input type="text" name="username" placeholder="Жак-Ив Кусто" required class="popup__user-data">
-                        <input type="text" name="description" placeholder="Исследователь океана" required class="popup__user-data">
+                        <input type="text" name="username" value="" placeholder="Жак-Ив Кусто" required class="popup__user-name">
+                        <input type="text" name="description" value="" placeholder="Исследователь океана" required class="popup__user-description">
                     </fieldset>
                     <button type="submit" value="Сохранить" class="popup__button" aria-label="сохранить данные">Сохранить</button>
                 </form>
             </div>
         </div>
+        <div class="popup popup_js-add-contain">
+            <div class="popup__container">
+                <button type="button" class="popup__close popup_js-add-close"  aria-label="закрыть окно"></button>
+                <h2 class="popup__title">Новое место</h2>
+                <form class="popup__form popup_js-add" name="info">
+                    <fieldset class="popup__user-info">
+                        <input type="text" name="place" value="" placeholder="Название" required class="popup__user-name popup_js-add-place">
+                        <input type="url" name="source" value="" placeholder="Ссылка на картинку" required class="popup__user-description popup_js-add-source">
+                    </fieldset>
+                    <button type="submit" value="Сохранить" class="popup__button popup_js-add-button" aria-label="Добавить картинку">Создать</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup popup_type_image">
+            <img class ="popup__image" src="" alt="">
+        </div>
     </div>
+    <template class = "card-template">
+        <li class="elements__card">
+            <img class="elements__image" src="" alt="">
+            <div class="elements__description">
+                <h2 class="elements__text"></h2>
+                <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>    
+            </div>
+        </li>
+    </template>
+    <script src="./index.js"></script>
 </body>
 </html>

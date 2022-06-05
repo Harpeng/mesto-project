@@ -1,4 +1,4 @@
-.popup__user-data {
+.popup__user-name {
     font-family: inherit;
     border: none;
     border-bottom: 1px solid rgba(0,0,0,.2);
@@ -13,24 +13,24 @@
     font-weight: 400;
 }
 
-.popup__user-data:last-of-type {
+.popup__user-name:last-of-type {
     margin-bottom: 45px;
 }
 
-.popup__user-data:focus {
+.popup__user-name:focus {
     color: black;
     opacity: 1;
 }
 
-.popup__user-data::-webkit-input-placeholder {
+.popup__user-name::-webkit-input-placeholder {
     color:black;
 }
 
-.popup__user-data::-moz-placeholder {
+.popup__user-name::-moz-placeholder {
     color:black;
 }
 
-.popup__user-data::-ms-input-placeholder {
+.popup__user-name::-ms-input-placeholder {
     color:black;
 }
 
