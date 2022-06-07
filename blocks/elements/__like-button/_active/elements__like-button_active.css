@@ -1,3 +1,6 @@
 .elements__like-button_active {
     background-image: url(../../../../images/Union.png);
+    opacity: 1;
+    background-repeat: no-repeat;
+    background-position: center;
 }

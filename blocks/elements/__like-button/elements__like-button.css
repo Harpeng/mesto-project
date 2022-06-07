@@ -14,6 +14,7 @@
     transition: .3s linear;
     padding: 0;
     margin-right: 5px;
+    padding-left: 15px;
 }
 
 .elements__like-button:hover {
