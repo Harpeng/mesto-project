@@ -1,11 +1,10 @@
 .popup__text {
     width: 100%;
+    font-family: inherit;
     font-weight: 400;
     color: #ffffff;
     font-size: 12px;
     line-height: 15px;
     margin-top: 10px;
-    align-self: flex-start;
-    margin: 0 auto;
     padding: 0;
 }

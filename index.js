@@ -90,18 +90,17 @@ const initialCards = [
   const popupImage = document.querySelector('.popup_type_image');
   const popupPic = popupImage.querySelector('.popup__image');
   const popupText = popupImage.querySelector('.popup__text');
-
-  const handleClickImage = function(data) {
-    popupImage.classList.add('.popup_is-opened');
-    popupPic.src = data.src
-  };
-
- // Реализации корзины на картинках
+  const buttonClose = popupImage.querySelector('.popup__close_js-img')
+  
+  buttonClose.addEventListener('click', () => {
+    popupImage.classList.remove('popup_is-opened');
+  });
 
   const handleClickButtonDelete = function (element) {
     element.remove();
   }
 
+  
 // Реализация загрузки 6 карточек из "коробки" и добавление карточки через попап
 
   const createCard = function(initialCards){
@@ -120,7 +119,13 @@ const initialCards = [
     cardImage.alt = initialCards.name
     cardName.textContent = initialCards.name;
 
-    cardImage.addEventListener('click', () => handleClickImage());
+
+    cardImage.addEventListener('click', () => {
+      popupImage.classList.add('popup_is-opened');
+      popupPic.src = cardImage.src;
+      popupPic.alt = cardImage.alt;
+      popupText.textContent = cardName.textContent;
+  });
 
 
     deleteButton.addEventListener('click',() => handleClickButtonDelete(cardElement));

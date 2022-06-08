@@ -1,3 +1,13 @@
 .popup__image {
-
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    background-position: center;
+    position: relative;
+    max-width: 75vw;
+    max-height: 75vh;
+    height: auto;
+    width: auto;
 }
+
+
