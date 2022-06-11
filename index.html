@@ -28,74 +28,30 @@
                 <button type="button" class="profile__add-button" aria-label="Добавить фотографию"></button>    
             </section>
             <section class="elements">
-                <ul class="elements__container">
-                    <!-- <li class="elements__card">
-                        <img class="elements__image" src="./images/kirill-pershin-1088404-unsplash%20(1)%20(1).jpg" alt="Старая церковь">
-                        <div class="elements__description">
-                            <h2 class="elements__text">Карачаевск</h2>
-                            <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>    
-                        </div>
-                    </li>
-                    <li class="elements__card">
-                        <img class="elements__image" src="./images/kirill-pershin-1404681-unsplash%20(1)%20(1).jpg" alt="Гора Эльбрус вдали">
-                        <div class="elements__description">
-                            <h2 class="elements__text">Гора Эльбрус</h2>
-                            <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                        </div>
-                    </li>
-                    <li class="elements__card">
-                        <img class="elements__image" src="./images/kirill-pershin-1556355-unsplash%20(1)%20(1).jpg" alt="Пейзаж гор Домбая">
-                        <div class="elements__description">
-                            <h2 class="elements__text">Домбай</h2>
-                            <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                        </div>
-                    </li>
-                    <li class="elements__card">
-                        <img class="elements__image" src="./images/kirill-pershin-1404681-unsplash%20(1)%20(1).jpg" alt="Гора Эльбрус вдали">
-                        <div class="elements__description">
-                            <h2 class="elements__text">Гора Эльбрус</h2>
-                            <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                        </div>
-                    </li>
-                    <li class="elements__card">
-                        <img class="elements__image" src="./images/kirill-pershin-1556355-unsplash%20(1)%20(1).jpg" alt="Пейзаж гор Домбая">
-                        <div class="elements__description">
-                            <h2 class="elements__text">Домбай</h2>
-                            <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                        </div>
-                    </li>
-                    <li class="elements__card">
-                        <img class="elements__image" src="./images/kirill-pershin-1088404-unsplash%20(1)%20(1).jpg" alt="Старая церковь">
-                        <div class="elements__description">
-                            <h2 class="elements__text">Карачаево-Черкессия</h2>
-                            <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button>
-                        </div>
-                    </li>
-                -->
-                </ul>
+                <ul class="elements__container"></ul>
             </section>
         </main>
         <footer class="footer">
             <p class="footer__copyright">&COPY; 2022 Mesto Russia</p>
         </footer>
-        <div class="popup">
+        <div class="popup popup_type-edit">
             <div class="popup__container">
-                <button type="button" class="popup__close"  aria-label="закрыть окно"></button>
+                <button type="button" class="popup__close popup__close_js-edit"  aria-label="закрыть окно"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form" name="info">
+                <form class="popup__form popup__form_js-edit" name="info">
                     <fieldset class="popup__user-info">
                         <input type="text" name="username" value="" placeholder="Жак-Ив Кусто" required class="popup__user-name">
                         <input type="text" name="description" value="" placeholder="Исследователь океана" required class="popup__user-description">
                     </fieldset>
-                    <button type="submit" value="Сохранить" class="popup__button" aria-label="сохранить данные">Сохранить</button>
+                    <button type="submit" value="Сохранить" class="popup__button popup__button_js-edit" aria-label="сохранить данные">Сохранить</button>
                 </form>
             </div>
         </div>
-        <div class="popup popup_js-add-contain">
+        <div class="popup popup_type-add">
             <div class="popup__container">
-                <button type="button" class="popup__close popup_js-add-close"  aria-label="закрыть окно"></button>
+                <button type="button" class="popup__close popup__close_js-add"  aria-label="закрыть окно"></button>
                 <h2 class="popup__title">Новое место</h2>
-                <form class="popup__form popup_js-add" name="info">
+                <form class="popup__form popup__form_js-add" name="info">
                     <fieldset class="popup__user-info">
                         <input type="text" name="place" value="" placeholder="Название" required class="popup__user-name popup_js-add-place">
                         <input type="url" name="source" value="" placeholder="Ссылка на картинку" required class="popup__user-description popup_js-add-source">
@@ -104,7 +60,7 @@
                 </form>
             </div>
         </div>
-        <div class="popup popup_type_image">
+        <div class="popup popup_type-image ">
             <div class = "popup__block-image">
                 <img class ="popup__image" src="#" alt="#">
                 <h2 class = "popup__text"></h2>
@@ -122,6 +78,6 @@
             </div>
         </li>
     </template>
-    <script src="./index.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

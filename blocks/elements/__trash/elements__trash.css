@@ -14,3 +14,7 @@ right: 21.28px;
 width: 18px;
 height: 19px;
 }
+
+.elements__trash:hover {
+    opacity: 0.6;
+}
