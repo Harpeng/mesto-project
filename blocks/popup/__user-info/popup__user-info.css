@@ -1,11 +1,5 @@
 .popup__user-info {
     border: none;
-    margin: 0 36px;
+    margin: 0;
     padding: 0;
-}
-
-@media screen and (max-width:720px) {
-    .popup__user-info {
-        margin: 0 22px;
-    } 
 }
