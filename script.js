@@ -1,7 +1,8 @@
 const popupImage = document.querySelector('.popup_type-image');
 const popupProfile = document.querySelector('.popup_type-edit')
 const cardPopup = document.querySelector('.popup_type-add');
-const popup = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
+const popupCloseButtons = document.querySelectorAll('.popup__close')
 const popupImgClose = popupImage.querySelector('.popup__close_js-img');
 const popupAddClose = document.querySelector('.popup__close_js-add');
 const popupCloseEdit = document.querySelector('.popup__close_js-edit');
@@ -32,6 +33,7 @@ function closePopup(popup) {
     popup.classList.remove('popup_is-opened');
 };
 
+
 profileEditButton.addEventListener('click', () => {
     openPopup (popupProfile);
     defaultValueInput (popupProfile);
@@ -46,8 +48,6 @@ function formSubmitHandler (evt) {
     
     userName.textContent = nameInput.value;
     userDescription.textContent = jobInput.value;
-
-    evt.target.reset()
 }
 
 formElementEdit.addEventListener('submit', formSubmitHandler);
@@ -157,3 +157,10 @@ popupImgClose.addEventListener('click', () => {
     closePopup(popupImage);
 })
   
+// Закрытие попап через клик по оверлей
+popups.forEach(popup => {
+  popup.addEventListener('click', evt => {
+    closePopup(evt.target.closest('.popup'))
+  });
+});
+
