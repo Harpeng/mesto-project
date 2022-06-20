@@ -23,14 +23,35 @@ const cardContainer = document.querySelector('.elements__container');
 const popupPic = popupImage.querySelector('.popup__image');
 const popupText = popupImage.querySelector('.popup__text');
 
+// Закрытие попап через клик по оверлей
+
+function clickOnOverlay (evt) {
+  if(evt.target.classList.contains('popup_is-opened')) {
+    closePopup(evt.target.closest('.popup'))
+  }
+}
+
+// закрытие попап через esc (функция)
+
+function keyHandler(evt) {
+  const activePopup = document.querySelector('.popup_is-opened')
+  if (evt.which === 27) {
+    closePopup(activePopup);
+  };
+} 
 
 function openPopup(popup) {
     popup.classList.add('popup_is-opened');
 
+    document.addEventListener('mousedown', clickOnOverlay);
+    document.addEventListener('keydown', keyHandler)
 };
 
 function closePopup(popup) {
     popup.classList.remove('popup_is-opened');
+    
+    document.removeEventListener('mousedown', clickOnOverlay);
+    document.removeEventListener('keydown', keyHandler)
 };
 
 
@@ -69,6 +90,10 @@ popupAddClose.addEventListener('click', () => {
     closePopup(cardPopup);
 });
 
+popupImgClose.addEventListener('click', () => {
+  closePopup(popupImage);
+})
+
 const handleClickButtonDelete = function (element) {
     element.remove();
   }
@@ -103,7 +128,6 @@ const initialCards = [
   const createCard = function(initialCards){
     const cardElement = cardTemplate.cloneNode(true);
     const cardImage = cardElement.querySelector('.elements__image');
-    const cardBlock = cardElement.querySelector('.elements__card');
     const cardName = cardElement.querySelector('.elements__text');
     const likeButton = cardElement.querySelector('.elements__like-button');
     const deleteButton = cardElement.querySelector('.elements__trash');
@@ -118,7 +142,7 @@ const initialCards = [
 
 
     cardImage.addEventListener('click', () => {
-      popupImage.classList.add('popup_is-opened');
+      openPopup(popupImage);
       popupPic.src = cardImage.src;
       popupPic.alt = cardImage.alt;
       popupText.textContent = cardName.textContent;
@@ -153,14 +177,6 @@ const addToContainer = function(evt) {
 
 formElementAdd.addEventListener('submit', addToContainer);
 
-popupImgClose.addEventListener('click', () => {
-    closePopup(popupImage);
-})
   
-// Закрытие попап через клик по оверлей
-popups.forEach(popup => {
-  popup.addEventListener('click', evt => {
-    closePopup(evt.target.closest('.popup'))
-  });
-});
+
 
