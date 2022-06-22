@@ -38,10 +38,12 @@
             <div class="popup__container">
                 <button type="button" class="popup__close popup__close_js-edit"  aria-label="закрыть окно"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form popup__form_js-edit" name="info">
+                <form name="editForm" class="popup__form popup__form_js-edit" novalidate >
                     <fieldset class="popup__user-info">
-                        <input type="text" name="username" value="" placeholder="Жак-Ив Кусто" required class="popup__user-name">
-                        <input type="text" name="description" value="" placeholder="Исследователь океана" required class="popup__user-description">
+                        <input type="text" name="username" value="" placeholder="Жак-Ив Кусто" required class="popup__input popup__user-name" minlength="2" maxlength="40">
+                        <span class="popup_error-input popup_error-url" id="name-error" ></span>
+                        <input type="text" name="description" value="" placeholder="Исследователь океана" required class="popup__input popup__user-description" minlength="2" maxlength="200">
+                        <span class="popup_error-input popup_error-url" id="info-error" ></span>
                     </fieldset>
                     <button type="submit" value="Сохранить" class="popup__button popup__button_js-edit" aria-label="сохранить данные">Сохранить</button>
                 </form>
@@ -51,10 +53,12 @@
             <div class="popup__container">
                 <button type="button" class="popup__close popup__close_js-add"  aria-label="закрыть окно"></button>
                 <h2 class="popup__title">Новое место</h2>
-                <form class="popup__form popup__form_js-add" name="info">
+                <form name="addform" class="popup__form popup__form_js-add" novalidate>
                     <fieldset class="popup__user-info">
-                        <input type="text" name="place" value="" placeholder="Название" required class="popup__user-name popup_js-add-place">
-                        <input type="url" name="source" value="" placeholder="Ссылка на картинку" required class="popup__user-description popup_js-add-source">
+                        <input type="text" name="place" value="" placeholder="Название" required class="popup__input popup__user-name popup_js-add-place" minlength="2" maxlength="40">
+                        <span class="popup_error-input popup_error-url" id="title-error">Вы пропустили это поле</span>
+                        <input type="url" name="source" value="" placeholder="Ссылка на картинку" required class="popup__input popup__user-description popup_js-add-source">
+                        <span class="popup_error-input popup_error-url" id="link-error" ></span>
                     </fieldset>
                     <button type="submit" value="Сохранить" class="popup__button popup_js-add-button" aria-label="Добавить картинку">Создать</button>
                 </form>
