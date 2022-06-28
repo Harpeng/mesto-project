@@ -1,5 +1,17 @@
 .popup__user-info {
     border: none;
-    margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    margin: 0 0 10px;
+}
+
+
+@media screen and (max-width: 720px) {
+    .popup__user-info {
+        margin: 0 0 10px;
+    }
+}
+
+.popup__user-info:last-of-type {
+    margin: 0;
 }

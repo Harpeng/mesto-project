@@ -10,7 +10,7 @@ const popupCloseEdit = document.querySelector('.popup__close_js-edit');
 const popupButtonEdit = document.querySelector('.popup__button_js-edit');
 const popupButtonAdd = document.querySelector('.popup_js-add-button');
 const formElementAdd = document.querySelector('.popup__form_js-add');
-const forms = document.querySelectorAll('.popup__form');
+const popupButtons = document.querySelectorAll('.popup__button')
 const formElementEdit = document.querySelector('.popup__form_js-edit');
 const inputPlace = document.querySelector('.popup_js-add-place');
 const inputSource = document.querySelector('.popup_js-add-source');
@@ -24,51 +24,89 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 const cardContainer = document.querySelector('.elements__container');
 const popupPic = popupImage.querySelector('.popup__image');
 const popupText = popupImage.querySelector('.popup__text');
+const errors = document.querySelectorAll('.popup__error');
 
 
-// реализация валидации полей
-const showInputError = (formElement, inputElement, validationMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup_error_type');
-  errorElement.textContent = validationMessage;
-  errorElement.classList.add('popup_error_active');
+//реализация валидации полей
+
+const enableValidationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  spanSelector: '.popup__error',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_invalid',
+  inputErrorClass: 'popup_error-input',
+  errorClass: 'popup__error_visible'
+}; 
+
+ const showInputError = (errorElement, inputElement, config) => {
+  inputElement.classList.add(config.inputErrorClass);
+  errorElement.textContent = inputElement.validationMessage;
 };
 
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup_error_type');
-  errorElement.classList.remove('popup_error_active');
-  errorElement.textContent = '';
+const hideInputError = (errorElement, inputElement, config) => {
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.textContent = "";
 };
 
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+
+const checkInputValidity = (inputElement, formElement, config) => {
+  const isInputValid = inputElement.validity.valid;
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+
+  if(!isInputValid) {
+    showInputError(errorElement, inputElement, config);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(errorElement, inputElement, config);
   }
-};
+}
 
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-    });
-  });
-};
+const toggleButtonState = (button, isActive = false, config)  => {
+  if(isActive) {
+    button.classList.remove(config.inactiveButtonClass);
+    button.removeAttribute('disabled');
+  } else {
+    button.classList.add(config.inactiveButtonClass);
+    button.setAttribute('disabled', true);
+  }
+ }
 
-function enableValidation () {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit',(evt) => {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
+ const hideValidity = (formElement) => {
+  const activeErrors = formElement.querySelectorAll('.popup__input');
+  [...activeErrors].forEach(error => {
+    error.classList.remove('popup_error-input')
+  })
+  const visibleErrors = formElement.querySelectorAll('.popup__error');
+  [...visibleErrors].forEach(span => {
+    span.textContent = '';
+  })
+ }
+
+const setEventListeners = (formElement, config) => {
+  const inputList = formElement.querySelectorAll(config.inputSelector);
+  const submitButton = formElement.querySelector(config.submitButtonSelector); 
+  inputList.forEach(input => {
+    input.addEventListener('input', () => {
+      checkInputValidity(input, formElement, config);
+      toggleButtonState(submitButton, formElement.checkValidity(), config);
+    })
+  })
+ // profileEditButton.addEventListener('click', () =>{
+ //   toggleButtonState(submitButton, formElement.checkValidity(), config);
+ // })
+}; 
+
+const enableValidation = (config) => {
+  const forms = document.querySelectorAll(config.formSelector);
+  [...forms].forEach(form => {
+    setEventListeners(form, config);
   });
 }
 
-enableValidation()
+
+enableValidation(enableValidationConfig)
+
+
 
 // функция Закрытие попап через клик по оверлей
 
@@ -108,8 +146,10 @@ function closePopup(popup) {
 // слушатель на открытия попап с редактированием данных
 
 profileEditButton.addEventListener('click', () => {
+    hideValidity(popupProfile);
     openPopup (popupProfile);
     defaultValueInput (popupProfile);
+    toggleButtonState(popupButtonEdit, true)
 });
 
 // слушатель на закрытие попап с редактированием данных
@@ -121,7 +161,7 @@ popupCloseEdit.addEventListener('click', () => {
 
 // функция формы отправки данных попап редактирования профиля
 
-function formSubmitHandler (evt) {                                                                              
+const formSubmitHandler = (evt) => {                                                                              
     evt.preventDefault();
     userName.textContent = nameInput.value;
     userDescription.textContent = jobInput.value;
@@ -149,6 +189,7 @@ function defaultValueInput (popup) {
 
 profileAddButton.addEventListener('click', () => {
     openPopup(cardPopup);
+    hideValidity(cardPopup);
 });
 
 

@@ -2,19 +2,16 @@
     font-family: inherit;
     border: none;
     border-bottom: 1px solid rgba(0,0,0,.2);
-    margin-bottom: 30px;
     width: 100%;
-    min-height: 27px;
     cursor: pointer;
     padding: 0;
     font-size: 14px;
     line-height: 17px;
     font-weight: 400;
+    padding: 0 0 10px;
 }
 
-.popup__user-description:last-of-type {
-    margin-bottom: 45px;
-}
+
 
 .popup__user-description:focus {
     color: black;

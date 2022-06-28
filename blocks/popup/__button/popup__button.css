@@ -10,7 +10,8 @@
     text-align: center;
     justify-self: center;
     align-self: center;
-    margin: 0 0 36px 0;
+    margin: 28px 0 0 0;
+    padding: 0;
     cursor: pointer;
     padding: 0;
     border: none;
@@ -18,14 +19,14 @@
 }
 
 .popup__button:hover {
-    opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width:720px) {
     .popup__button {
         display: block;       
         margin: 0 ;
-        margin-bottom: 25px;
+        margin-top: 25px;
         min-height: 46px;
         font-size: 14px;
         line-height: 17px;
