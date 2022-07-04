@@ -8,17 +8,17 @@
     <meta name="author" content="Гондарев Алексей">
     <meta name="keywords" content="Путешествия,Фотографии,Поездка,Отпуск">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./index.css"> 
+   <!-- <link rel="stylesheet" href="./index.css"> --> 
 </head>
 <body class="page">
     <div class ="page__container">
         <header class="header">
-            <img class="header__logo" src="../images/Vector.svg" alt="Логотип сервиса Место">
+            <img class="header__logo" src="<%=require('../images/vector.svg')%>" alt="Логотип сервиса Место">
         </header>
         <main class="main">
             <section class="profile">
                 <div class="profile__container">
-                    <img class="profile__avatar" src="../images/image%20(1).jpg" alt="Аватар профиля">
+                    <img class="profile__avatar" src="<%=require('../images/image-1.jpg')%>" alt="Аватар профиля">
                     <div class="profile__info">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
                         <p class="profile__subtitle">Исследователь океана</p>
@@ -47,7 +47,7 @@
                         <input type="text" name="description" id="description" value="" placeholder="Исследователь океана" required class="popup__input popup__user-description" minlength="2" maxlength="200" pattern="^[A-Za-zА-Яа-яЁё]+$">
                         <span class="popup__error" id="description-error" ></span>
                     </fieldset>
-                    <button disabled type="submit" value="Сохранить" class="popup__button popup__button_js-edit" aria-label="сохранить данные" >Сохранить</button>
+                    <button  type="submit" value="Сохранить" class="popup__button popup__button_js-edit" aria-label="сохранить данные" >Сохранить</button>
                 </form>
             </div>
         </div>
@@ -64,7 +64,7 @@
                         <input type="url" name="link" id="link" value="" placeholder="Ссылка на картинку" required class="popup__input popup__user-description popup_js-add-source" title="Введите адрес сайта" pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?">
                         <span class="popup__error" id="link-error" ></span>
                     </fieldset>
-                    <button disabled type="submit" value="Сохранить" class="popup__button popup_js-add-button" aria-label="Добавить картинку" >Создать</button>
+                    <button type="submit" value="Сохранить" class="popup__button popup_js-add-button" aria-label="Добавить картинку" >Создать</button>
                 </form>
             </div>
         </div>
@@ -86,7 +86,6 @@
             </div>
         </li>
     </template>
-    <script type="module" src="./components/index.js"></script>
-    <script type="module" src="./components/validate.js"></script>
+  <!--  <script type="module" src="./index.js"></script> -->
 </body>
 </html>
