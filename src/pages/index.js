@@ -1,20 +1,46 @@
 import './index.css';
-
-const popupImgClose = popupImage.querySelector('.popup__close_js-img');
-const popupAddClose = document.querySelector('.popup__close_js-add');
-const popupCloseEdit = document.querySelector('.popup__close_js-edit');
-const popupButtonEdit = document.querySelector('.popup__button_js-edit');
-const popupButtonAdd = document.querySelector('.popup_js-add-button');
-const formElementAdd = document.querySelector('.popup__form_js-add');
-const formElementEdit = document.querySelector('.popup__form_js-edit');
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileAddButton = document.querySelector('.profile__add-button');
-
 import {enableValidation, hideValidity, toggleButtonState, enableValidationConfig} from '../components/validate.js'
-import {openPopup, closePopup, popupProfile, popupImage, cardPopup} from '../components/utils.js';
-import {formSubmitHandler, defaultValueInput, addToContainer} from '../components/modal.js';
+import {openPopup, closePopup} from '../components/utils.js';
+import {defaultValueInput} from '../components/modal.js';
+import {profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup} from '../utils/constants.js';
+import {createCard} from '../components/card.js';
 
-enableValidation(enableValidationConfig)
+enableValidation(enableValidationConfig);
+
+// функция формы отправки данных попап редактирования профиля
+const formEditSubmitHandler = (evt) => {                                                                              
+  evt.preventDefault();
+  userName.textContent = nameInput.value;
+  userDescription.textContent = jobInput.value;
+
+  closePopup(popupProfile);
+
+  evt.target.reset();
+};
+
+//объявленная переменная с функцией добавление новых карточек через форму
+
+const addToContainer = function(evt) {
+  evt.preventDefault();
+
+  const input = {name: inputPlace.value, link: inputSource.value};
+
+  renderCard(input, cardContainer);
+
+  closePopup(cardPopup);
+
+  evt.target.reset();
+};
+
+//объявленная переменная с функцией отображения карточек на сайте
+const renderCard = function(data,container){
+  const card = createCard(data);
+  container.prepend(card);
+  }
+  
+  initialCards.forEach(function(initialCards){
+  renderCard(initialCards, cardContainer);
+  })  
 
 // слушатель на открытия попап с редактированием данных
 profileEditButton.addEventListener('click', () => {
@@ -30,7 +56,7 @@ popupCloseEdit.addEventListener('click', () => {
 });
 
 //слушатель формы редактирования профиля
-formElementEdit.addEventListener('submit', formSubmitHandler);
+formElementEdit.addEventListener('submit', formEditSubmitHandler);
 
 //слушатель открытия попап с добавлением карточки
 profileAddButton.addEventListener('click', () => {

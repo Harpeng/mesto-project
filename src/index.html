@@ -8,17 +8,17 @@
     <meta name="author" content="Гондарев Алексей">
     <meta name="keywords" content="Путешествия,Фотографии,Поездка,Отпуск">
     <title>Mesto</title>
-   <!-- <link rel="stylesheet" href="./index.css"> --> 
+    <link rel="stylesheet" href="./pages/index.css"> 
 </head>
 <body class="page">
     <div class ="page__container">
         <header class="header">
-            <img class="header__logo" src="<%=require('../images/vector.svg')%>" alt="Логотип сервиса Место">
+            <img class="header__logo" src="<%=require('./images/vector.svg')%>" alt="Логотип сервиса Место">
         </header>
         <main class="main">
             <section class="profile">
                 <div class="profile__container">
-                    <img class="profile__avatar" src="<%=require('../images/image-1.jpg')%>" alt="Аватар профиля">
+                    <img class="profile__avatar" src="<%=require('./images/image-1.jpg')%>" alt="Аватар профиля">
                     <div class="profile__info">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
                         <p class="profile__subtitle">Исследователь океана</p>
@@ -40,11 +40,11 @@
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form name="editForm" class="popup__form popup__form_js-edit" novalidate >
                     <fieldset class="popup__user-info">
-                        <input type="text" name="username" id ="username"  value="" placeholder="Жак-Ив Кусто" required class="popup__input popup__user-name" minlength="2" maxlength="40" pattern="^[A-Za-zА-Яа-яЁё]+$">
+                        <input type="text" name="username" id ="username"  value="" placeholder="Имя" required class="popup__input popup__user-name" minlength="2" maxlength="40" pattern="^[A-Za-zА-Яа-яЁё]+$">
                         <span class="popup__error" id="username-error" ></span>
                     </fieldset>
                     <fieldset class="popup__user-info">
-                        <input type="text" name="description" id="description" value="" placeholder="Исследователь океана" required class="popup__input popup__user-description" minlength="2" maxlength="200" pattern="^[A-Za-zА-Яа-яЁё]+$">
+                        <input type="text" name="description" id="description" value="" placeholder="Профессия" required class="popup__input popup__user-description" minlength="2" maxlength="200" pattern="^[A-Za-zА-Яа-яЁё]+$">
                         <span class="popup__error" id="description-error" ></span>
                     </fieldset>
                     <button  type="submit" value="Сохранить" class="popup__button popup__button_js-edit" aria-label="сохранить данные" >Сохранить</button>
@@ -86,6 +86,6 @@
             </div>
         </li>
     </template>
-  <!--  <script type="module" src="./index.js"></script> -->
+  <script type="module" src="./pages/index.js"></script> 
 </body>
 </html>
