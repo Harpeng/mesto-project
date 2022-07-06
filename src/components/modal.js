@@ -1,5 +1,3 @@
-
-import {closePopup} from './utils.js';
 import { nameInput, jobInput, userName, userDescription} from '../utils/constants.js'; 
 
 
@@ -28,5 +26,23 @@ function keyHandler(evt) {
   };
 } 
 
+// функция открытия попап
 
-export {clickOnOverlay, keyHandler, defaultValueInput};
+function openPopup(popup) {
+  popup.classList.add('popup_is-opened');
+
+  popup.addEventListener('mousedown', clickOnOverlay);
+  document.addEventListener('keydown', keyHandler)
+};
+
+// функция закрытия попап
+
+function closePopup(popup) {
+  popup.classList.remove('popup_is-opened');
+  
+  popup.removeEventListener('mousedown', clickOnOverlay);
+  document.removeEventListener('keydown', keyHandler)
+};
+
+
+export {openPopup, closePopup, clickOnOverlay, keyHandler, defaultValueInput};

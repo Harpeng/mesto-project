@@ -1,5 +1,5 @@
-import {openPopup} from './utils.js';
-import {cardTemplate, popupPic, popupText, initialCards, cardContainer, popupImage} from '../utils/constants.js';
+import {openPopup} from './modal';
+import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.js';
  // объявленная переменная с функцией удаления фото
  const handleDeleteCard = (evt) => {
   evt.target.closest('.elements__card').remove();

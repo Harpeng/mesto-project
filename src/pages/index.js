@@ -1,8 +1,7 @@
 import './index.css';
-import {enableValidation, hideValidity, toggleButtonState, enableValidationConfig} from '../components/validate.js'
-import {openPopup, closePopup} from '../components/utils.js';
-import {defaultValueInput} from '../components/modal.js';
-import {profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup} from '../utils/constants.js';
+import {enableValidation, hideValidity, toggleButtonState} from '../components/validate.js'
+import {defaultValueInput, openPopup, closePopup} from '../components/modal.js';
+import {profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup, enableValidationConfig} from '../utils/constants.js';
 import {createCard} from '../components/card.js';
 
 enableValidation(enableValidationConfig);

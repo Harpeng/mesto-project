@@ -20,6 +20,18 @@ const jobInput = document.querySelector('.popup__user-description');
 const userName = document.querySelector('.profile__title');
 const userDescription = document.querySelector('.profile__subtitle');
 
+/** валидация */
+const enableValidationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  spanSelector: '.popup__error',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_invalid',
+  inputErrorClass: 'popup_error-input',
+  errorClass: 'popup__error_visible'
+}; 
+
+
 /** карточки */
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__card');
 const cardContainer = document.querySelector('.elements__container');
@@ -51,4 +63,4 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
-  export{profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, cardTemplate, popupPic, popupText, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup};
+  export{enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, cardTemplate, popupPic, popupText, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup};

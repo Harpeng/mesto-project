@@ -1,13 +1,5 @@
 //реализация валидации полей
-  const enableValidationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  spanSelector: '.popup__error',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_invalid',
-  inputErrorClass: 'popup_error-input',
-  errorClass: 'popup__error_visible'
-}; 
+import {enableValidationConfig} from '../utils/constants';
 
  const showInputError = (errorElement, inputElement, inputErrorClass) => {
   inputElement.classList.add(inputErrorClass);
