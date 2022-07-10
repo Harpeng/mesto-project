@@ -8,7 +8,6 @@
     <meta name="author" content="Гондарев Алексей">
     <meta name="keywords" content="Путешествия,Фотографии,Поездка,Отпуск">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css"> 
 </head>
 <body class="page">
     <div class ="page__container">
@@ -18,7 +17,9 @@
         <main class="main">
             <section class="profile">
                 <div class="profile__container">
-                    <img class="profile__avatar" src="<%=require('./images/image-1.jpg')%>" alt="Аватар профиля">
+                    <button type="button" class="profile__change-avatar-button">
+                        <img class="profile__avatar" src="<%=require('./images/image-1.jpg')%>" alt="Аватар профиля">
+                    </button>
                     <div class="profile__info">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
                         <p class="profile__subtitle">Исследователь океана</p>
@@ -75,17 +76,32 @@
                 <button type="button" class="popup__close popup__close_js-img"  aria-label="закрыть окно"></button>
             </div>
         </div>
+        <div class="popup popup_type-avatar">
+            <div class="popup__container-avatar">
+                <button type="button" class="popup__close popup__close_js-avatar"  aria-label="закрыть окно"></button>
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form name="avatarForm" class="popup__form popup__form_js-avatar" novalidate>
+                    <fieldset class="popup__user-info">
+                        <input type="url" name="link-avatar" id="link-avatar" value="" placeholder="Ссылка на картинку" required class="popup__input popup__user-description popup_js-add-source popup_js-change-avatar" title="Введите адрес сайта" pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?">
+                        <span class="popup__error" id="link-avatar-error" ></span>
+                    </fieldset>
+                    <button type="submit" value="Сохранить" class="popup__button popup_js-avatar-button" aria-label="Изменить аватар" >Создать</button>
+                </form>
+            </div>
+        </div>
     </div>
     <template class = "card-template">
         <li class="elements__card">
             <img class="elements__image"  src="#" alt="#">
             <div class="elements__description">
                 <h2 class="elements__text"></h2>
-                <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button> 
+                <div class="elements__like-container">
+                    <button type="button" class="elements__like-button" aria-label="Поставить лайк"></button> 
+                    <span class="elements__like-counter">1</span>
+                </div>
                 <button type="button" class = "elements__trash" arial-label = "удалить" ></button>
             </div>
         </li>
-    </template>
-  <script type="module" src="./pages/index.js"></script> 
+    </template> 
 </body>
 </html>

@@ -11,7 +11,12 @@ const formElementAdd = document.querySelector('.popup__form_js-add');
 const formElementEdit = document.querySelector('.popup__form_js-edit');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
-
+const profileChangeAvatarButton = document.querySelector('.profile__change-avatar-button');
+const formChangeAvatar = document.querySelector('.popup__form_js-avatar');
+const popupCloseChangeAvatar = document.querySelector('.popup__close_js-avatar');
+const avatarChangePopup = document.querySelector('.popup_type-avatar');
+const popupButtonChangeAvatar = document.querySelector('.popup_js-avatar-button');
+const avatar = document.querySelector('.profile__avatar');
 /** инпуты */
 const inputPlace = document.querySelector('.popup_js-add-place');
 const inputSource = document.querySelector('.popup_js-add-source');
@@ -19,7 +24,7 @@ const nameInput = document.querySelector('.popup__user-name');
 const jobInput = document.querySelector('.popup__user-description');
 const userName = document.querySelector('.profile__title');
 const userDescription = document.querySelector('.profile__subtitle');
-
+const inputChangeAvatar = document.querySelector('.popup_js-change-avatar');
 /** валидация */
 const enableValidationConfig = {
   formSelector: '.popup__form',
@@ -63,4 +68,13 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
-  export{enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, cardTemplate, popupPic, popupText, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup};
+
+  const dataLoading = (button, loading) => {
+    if (loading) {
+      button.textContent = "Сохранение...";
+    } else {
+      button.textContent = "Сохранить";
+    }
+  }
+  
+  export{avatar, popupButtonChangeAvatar, inputChangeAvatar, avatarChangePopup, popupCloseChangeAvatar, formChangeAvatar, profileChangeAvatarButton, dataLoading, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, cardTemplate, popupPic, popupText, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup};
