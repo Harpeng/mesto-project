@@ -20,8 +20,8 @@ function clickOnOverlay (evt) {
 // функция закрытие попап через esc (функция)
 
 function keyHandler(evt) {
-  const activePopup = document.querySelector('.popup_is-opened')
   if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_is-opened');
     closePopup(activePopup);
   };
 } 

@@ -29,7 +29,7 @@ getAllInfo()
       openPopup(avatarChangePopup);
     });
 
-    const formChangeAvatarSubmitHandler = (evt) => {
+    const handleAvatarFormSubmit = (evt) => {
       evt.preventDefault();
       dataLoading(popupButtonChangeAvatar, true);
       replaceUserAvatar({avatar: inputChangeAvatar.value })
@@ -43,9 +43,12 @@ getAllInfo()
         .catch((err) => {
           console.log(`Ошибка изменения аватара: ${err}`)
         })
+        .finally(() => {
+          dataLoading(popupButtonChangeAvatar, false);
+        });
     }
 
-    formChangeAvatar.addEventListener('submit', formChangeAvatarSubmitHandler);
+    formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
     popupCloseChangeAvatar.addEventListener('click', () => {
       closePopup(avatarChangePopup);
     })
@@ -53,7 +56,7 @@ getAllInfo()
 enableValidation(enableValidationConfig);
 
 // функция формы отправки данных попап редактирования профиля
-const formEditSubmitHandler = (evt) => {                                                                              
+const handleProfileFormSubmit = (evt) => {                                                                              
   evt.preventDefault();
   dataLoading(popupButtonEdit, true);
   editProfile({name: nameInput.value, about: jobInput.value})
@@ -67,8 +70,11 @@ const formEditSubmitHandler = (evt) => {
     })
     .catch((err) => {
       console.log(`Ошибка редактирования профиля: ${err}`)
+    })
+    .finally(() => {
+      dataLoading(popupButtonEdit, false);
     });
-};
+  }
 
 
 // слушатель на открытия попап с редактированием данных
@@ -85,7 +91,7 @@ popupCloseEdit.addEventListener('click', () => {
 });
 
 //слушатель формы редактирования профиля
-formElementEdit.addEventListener('submit', formEditSubmitHandler);
+formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 
 //слушатель закрытия попап с добавлением карточки
@@ -119,6 +125,9 @@ const addToContainer = function(evt) {
     .catch((err) => {
       console.log(`Ошибка добавления карточки: ${err}`);
     })
+    .finally(() => {
+      dataLoading(popupButtonAdd, false);
+    });
 };
 
 const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
