@@ -2,6 +2,39 @@ import {openPopup} from './modal';
 import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.js';
 import { data } from 'autoprefixer';
 
+class Card{
+  constructor(dataCard, templateSelector, userId){
+    this._cardName = dataCard.cardName;
+    this._cardLink = dataCard.cardLink;
+    this._cardOwner = dataCard.cardOwner;
+    this._id = dataCard.id;
+    this._userId = userId;
+    this._templateSelector = templateSelector;
+  }
+
+  _getElement() {
+    const cardElement = document.querySelector(this.templateSelector)
+    .content 
+    .querySelector('.elements__card')
+    .cloneNode(true)
+    
+    return cardElement
+  }
+
+
+  createCard(userId) {
+    this._element = this._getElement()
+
+    this._element.querySelector('.elements__image').src = this._cardLink;
+    this._element.querySelector('.elements__text').src = this._cardName;
+    this._element.querySelector('.elements__image').alt = this._cardName;
+
+    return this._element;
+  }
+}
+
+
+
 
 
  // объявленная переменная с функцией удаления фото
@@ -40,7 +73,7 @@ const createCard = function(dataCard, userId, handleChangeLikeCondition, handleD
  
   // элемент получает ссылку, имя и альт из "коробки"
   cardImage.src = dataCard.link;
-  cardImage.alt = dataCard.name
+  cardImage.alt = dataCard.name;
   cardName.textContent = dataCard.name;
 
   updateLike(cardElement, dataCard.likes, userId);
@@ -69,4 +102,4 @@ const createCard = function(dataCard, userId, handleChangeLikeCondition, handleD
   return cardElement;
 };
 
-export {createCard, updateLike, handleButtonDeleteCard};
+export {Card /**createCard */ , updateLike, handleButtonDeleteCard};
