@@ -45,7 +45,7 @@ api.getAllInfo()
     const handleAvatarFormSubmit = (evt) => {
       evt.preventDefault();
       dataLoading(popupButtonChangeAvatar, true);
-      replaceUserAvatar({avatar: inputChangeAvatar.value })
+      api.replaceUserAvatar({avatar: inputChangeAvatar.value })
         .then(() => {
           avatar.src = inputChangeAvatar.value;
         })
@@ -76,7 +76,7 @@ enableValidation(enableValidationConfig);
 const handleProfileFormSubmit = (evt) => {                                                                              
   evt.preventDefault();
   dataLoading(popupButtonEdit, true);
-  editProfile({name: nameInput.value, about: jobInput.value})
+  api.editProfile({name: nameInput.value, about: jobInput.value})
     .then(() => {
       userName.textContent = nameInput.value;
       userDescription.textContent = jobInput.value;
@@ -133,7 +133,7 @@ profileAddButton.addEventListener('click', () => {
 const addToContainer = function(evt) {
   evt.preventDefault();
   dataLoading(popupButtonAdd, true);
-  addCards({name: inputPlace.value, link: inputSource.value})
+  api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
       renderCard(dataFromServer, cardContainer, userId);
     closePopup(cardPopup);
@@ -149,7 +149,7 @@ const addToContainer = function(evt) {
 
 // функция изменения лайка
 const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
-  changeLikeCondition(cardId, isLiked)
+  api.changeLikeCondition(cardId, isLiked)
     .then((dataFromServer) => {
       updateLike(cardElement,dataFromServer.likes, userId)
     })
@@ -160,7 +160,7 @@ const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
 
 //функция удаления карточек
 const handleDeleteCard = (cardId, cardElement) => {
-  deleteCards(cardId)
+  api.deleteCards(cardId)
     .then(() => {
       handleButtonDeleteCard(cardElement)
     })
