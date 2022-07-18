@@ -1,8 +1,9 @@
-class Api {
+export default class Api {
   constructor(url, headers) {
     this._url = url;
-    this._cardsUrl = cardsUrl;
-    this._usersUrl = userUrl;
+    this._cardsUrl = `${this._url}/cards`;
+    this._usersUrl = `${this._url}/users/me`;
+    this._userAvatarUrl = `${this._usersUrl}/avatar`;
     this._headers = headers;
   }
 
@@ -11,108 +12,67 @@ class Api {
     return res.ok ? res.json() : Promise.reject('Сервер недоступен');
   }
 
-  getAllCards() {
-    return fetch(`${this._url}/${this._cardsUrl}`, {
-      method: "GET",
-      headers: this._headers
-    })
-    
-
-   //.then((res) => this._onResponce(res))  
-    .then(this._onResponce)
-  }
-
-  getUserInfo() {
-    return fetch(`${this._url}/${this._usersUrl}`, {
+  _getAllCards() {
+    return fetch(this._cardsUrl, {
       method: "GET",
       headers: this._headers
     })
     .then(this._onResponce)
-}
-}
-
-
-const config = {
-    url: "https://mesto.nomoreparties.co/v1",
-    groupId: `plus-cohort-13`,
-    headers: {
-        "Content-type": 'application/json',
-        "Authorization": '0840f0ca-62bb-451b-9a78-75b4cfb3cc54'
-    }
   }
-  
-  function onResponce(res){
-    console.log(res);
-    return res.ok ? res.json() : Promise.reject('Сервер не доступен')
-  }
-  
-   function getAllCards() {
-   return fetch(`${config.url}/${config.groupId}/cards`, {
+
+  _getUserInfo() {
+    return fetch(this._usersUrl, {
       method: "GET",
-      headers: config.headers
+      headers: this._headers
     })
-    .then(onResponce)
+    .then(this._onResponce)
   }
 
-  function getUserInfo() {
-    return fetch(`${config.url}/${config.groupId}/users/me`, {
-        method: "GET",
-        headers: config.headers
-      })
-      .then(onResponce)
+  getAllInfo() {
+    return Promise.all([this._getAllCards(), this._getUserInfo()])
   }
-  
-  function addCards(data) {
-    return fetch(`${config.url}/${config.groupId}/cards`, {
+
+  addCards(data) {
+    return fetch(this._cardsUrl, {
        method: "POST",
-       headers: config.headers,
+       headers: this._headers,
        body: JSON.stringify(data)
      })
-     .then(onResponce)
+     .then(this._onResponce)
    }
 
-   function editProfile(data) {
-    return fetch(`${config.url}/${config.groupId}/users/me`, {
-       method: "PATCH",
-       headers: config.headers,
-       body: JSON.stringify(data)
-     })
-     .then(onResponce)
-   }
+  editProfile(data) {
+    return fetch(this._usersUrl, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+    .then(this._onResponce)
+  }
 
-   function replaceUserAvatar(avatarLink) {
-    return fetch(`${config.url}/${config.groupId}/users/me/avatar`, {
+  replaceUserAvatar(avatarLink) {
+    return fetch(this._userAvatarUrl, {
         method: "PATCH",
-        headers: config.headers,
+        headers: this._headers,
         body: JSON.stringify(avatarLink)
       })
-      .then(onResponce)
+      .then(this._onResponce)
     }
-   
 
-   function deleteCards(cardId) {
-    return fetch(`${config.url}/${config.groupId}/cards/${cardId}`, {
-       method: "DELETE",
-       headers: config.headers,
-     })
-     .then(onResponce)
-   }
-
-   function changeLikeCondition(cardId, isLike) {
-    return fetch(`${config.url}/${config.groupId}/cards/likes/${cardId}`, {
-       method: isLike ? "DELETE" : "PUT",
-       headers: config.headers
-     })
-     .then(onResponce)
-   }
-
-   function getAllInfo() {
-    return Promise.all([getAllCards(), getUserInfo()])
-   }
-
-
-
-
-   export {changeLikeCondition, getUserInfo, getAllInfo, getAllCards, addCards, editProfile, deleteCards, replaceUserAvatar};
-
+  deleteCards(cardId) {
+    return fetch(`${this._cardsUrl}/${cardId}`, {
+        method: "DELETE",
+        headers: this._headers
+      })
+      .then(this._onResponce)
+    }
   
+  changeLikeCondition(cardId, isLike) {
+    return fetch(`${this._cardsUrl}/likes/${cardId}`, {
+        method: isLike ? "DELETE" : "PUT",
+        headers: this._headers
+      })
+      .then(this._onResponce)
+    }
+  
+}
