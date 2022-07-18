@@ -1,3 +1,37 @@
+class Api {
+  constructor(url, headers) {
+    this._url = url;
+    this._cardsUrl = cardsUrl;
+    this._usersUrl = userUrl;
+    this._headers = headers;
+  }
+
+  _onResponce(res) {
+    console.log(res);
+    return res.ok ? res.json() : Promise.reject('Сервер недоступен');
+  }
+
+  getAllCards() {
+    return fetch(`${this._url}/${this._cardsUrl}`, {
+      method: "GET",
+      headers: this._headers
+    })
+    
+
+   //.then((res) => this._onResponce(res))  
+    .then(this._onResponce)
+  }
+
+  getUserInfo() {
+    return fetch(`${this._url}/${this._usersUrl}`, {
+      method: "GET",
+      headers: this._headers
+    })
+    .then(this._onResponce)
+}
+}
+
+
 const config = {
     url: "https://mesto.nomoreparties.co/v1",
     groupId: `plus-cohort-13`,

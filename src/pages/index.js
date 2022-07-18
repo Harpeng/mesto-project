@@ -7,6 +7,8 @@ import {replaceUserAvatar ,changeLikeCondition, addCards, editProfile, getAllInf
 
  export let userId = null;
 
+
+ // получение карточек и информации о пользователе с сервера
 getAllInfo()
   .then(([cards, user]) => {
     userName.textContent = user.name;
@@ -22,13 +24,14 @@ getAllInfo()
       console.log(`Ошибка получения информации с сервера: ${err}`)
     })
   
-
+    // слушатель на открытие попапа изменения аватара
     profileChangeAvatarButton.addEventListener('click', () => {
       toggleButtonState(popupButtonChangeAvatar, false, enableValidationConfig.inactiveButtonClass);
       hideValidity(avatarChangePopup);
       openPopup(avatarChangePopup);
     });
 
+    // функция формы смены аватара
     const handleAvatarFormSubmit = (evt) => {
       evt.preventDefault();
       dataLoading(popupButtonChangeAvatar, true);
@@ -48,11 +51,15 @@ getAllInfo()
         });
     }
 
+    // слушатель на отправку сабмита попапа изменения аватара
     formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
+
+    // слушатель на закратие попапа изменение аватара
     popupCloseChangeAvatar.addEventListener('click', () => {
       closePopup(avatarChangePopup);
     })
 
+    // вызвана функция проверки валидности
 enableValidation(enableValidationConfig);
 
 // функция формы отправки данных попап редактирования профиля
@@ -130,6 +137,7 @@ const addToContainer = function(evt) {
     });
 };
 
+// функция изменения лайка
 const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
   changeLikeCondition(cardId, isLiked)
     .then((dataFromServer) => {
@@ -140,6 +148,7 @@ const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
     })
 }
 
+//функция удаления карточек
 const handleDeleteCard = (cardId, cardElement) => {
   deleteCards(cardId)
     .then(() => {

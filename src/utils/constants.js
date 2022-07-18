@@ -69,6 +69,8 @@ const initialCards = [
     }
   ];
 
+
+/** функция изменения текста кнопки при загрузки информации на страницу */
   const dataLoading = (button, loading) => {
     if (loading) {
       button.textContent = "Сохранение...";
