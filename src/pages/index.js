@@ -32,7 +32,7 @@ import {
   dataLoading,
   cardTemplate
 } from '../utils/constants.js';
-import {Card, updateLike, handleButtonDeleteCard} from '../components/card.js';
+import {Card,/**updateLike, */ handleButtonDeleteCard} from '../components/card.js';
 import Api from '../components/api.js'
 
 let userId = null;
@@ -67,7 +67,6 @@ api.getAllInfo()
     userId = user._id;
 
     cards.reverse().forEach((data) => {
-      console.log('data', data);
       renderCard(data, handleDeleteCard, cardContainer, userId);
     });
   })
@@ -189,31 +188,27 @@ const addToContainer = function(evt) {
 };
 
 // функция изменения лайка
-const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
-  api.changeLikeCondition(cardId, isLiked)
-    .then((dataFromServer) => {
-      updateLike(cardElement,dataFromServer.likes, userId)
-    })
-    .catch((err) => {
-      console.log(`Ошибка изменения лайка: ${err}`);
-    })
-}
+// const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
+//   api.changeLikeCondition(cardId, isLiked)
+//     .then((dataFromServer) => {
+//       updateLike(cardElement,dataFromServer.likes, userId)
+//     })
+//     .catch((err) => {
+//       console.log(`Ошибка изменения лайка: ${err}`);
+//     })
+// }
 
 
 
 
 //объявленная переменная с функцией отображения карточек на сайте
 const renderCard = function(data, handleDelete, container, userId) {
-  //const card = createCard(data, userId, handleChangeLikeCondition, handleDeleteCard);
-  console.log('userId', userId);
-
   const card = new Card(
     data, 
     handleDelete,
     '.card-template',
     userId
   );
-  //console.log(card);
   const newCard = card.createCard();
   container.prepend(newCard);
   }

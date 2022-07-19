@@ -1,6 +1,6 @@
 import {openPopup} from './modal';
 import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.js';
-export {Card, updateLike, handleButtonDeleteCard};
+export {Card,/**updateLike */ handleButtonDeleteCard};
 
 class Card {
   constructor(data, /*handleclick, handlelike,*/ handleDelete, templateSelector, userId){
@@ -8,9 +8,12 @@ class Card {
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
     this._id = data._id;
+    this._likes = data.likes;
+    this._handleDelete = handleDelete;
     this._templateSelector = templateSelector;
     this._userId = userId;
-    this._handleDelete = handleDelete;
+    
+    this._isLiked = false;
   }
 
   _getElement() {
@@ -20,17 +23,33 @@ class Card {
     .querySelector('.elements__card')
     .cloneNode(true);
     
-    return cardElement
+    return cardElement;
+  }
+
+  isLiked() {
+      return Boolean(this._likes.find((likeObj) => {
+        return likeObj._id === this._userId;
+      }))
   }
 
 
-//   handleButtonDeleteCard() {
-//   this._element.remove()
-//   this._element = null;
-// };
+  updateLike() {
+    const cardElement = this._getElement();
+    const likeButton = cardElement.querySelector('.elements__like-button');
+    const likeCounter = cardElement.querySelector('.elements__like-counter');
 
+    likeCounter.textContent = this._likes.length;
 
-  createCard() {
+    console.log('likeCounter', likeCounter);
+
+    if(isLiked(this._likes, this._userId)){
+      likeButton.classList.add('elements__like-button_active');
+    } else {
+      likeButton.classList.remove('elements__like-button_active');
+    }
+  }
+
+  createCard(userId) {
     this._element = this._getElement();
 
     this._element.querySelector('.elements__image').src = this._cardLink;
@@ -41,6 +60,8 @@ class Card {
     if(this._cardOwner !== this._userId) {
       this._delete.remove();
     }
+
+    console.log('привет',this.updateLike(userId));
 
     this._delete.addEventListener('click', () => { this._handleDelete(this._id, this._element)});
 
@@ -62,7 +83,7 @@ const isLiked = (likesArray, userId) => {
   }))
 }
 
-const updateLike = (cardElement, likesArray, userId) => {
+/**const updateLike = (cardElement, likesArray, userId) => {
   const likeButton = cardElement.querySelector('.elements__like-button');
   const likeCounter = cardElement.querySelector('.elements__like-counter');
   
@@ -103,13 +124,13 @@ const createCard = function(dataCard, userId, handleChangeLikeCondition, handleD
     popupText.textContent = cardName.textContent;
 });
    /** слушатель лайка */
-   likeButton.addEventListener('click', () => {
-    handleChangeLikeCondition(dataCard._id, likeButton.classList.contains('elements__like-button_active'), cardElement)
-   });
+ //  likeButton.addEventListener('click', () => {
+ //   handleChangeLikeCondition(dataCard._id, likeButton.classList.contains('elements__like-button_active'), cardElement)
+ //  });
    //слушатель на удаление карточки    
-   deleteButton.addEventListener('click', () => handleDeleteCard(dataCard._id, cardElement));
+ //  deleteButton.addEventListener('click', () => handleDeleteCard(dataCard._id, cardElement));
 
 
 
-  return cardElement;
-};
+//  return cardElement;
+//}; *
