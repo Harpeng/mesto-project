@@ -46,8 +46,8 @@ class Card {
     }
   }
 
-  displayLikeCounter() {
-    this._likeCounter.textContent = this._likes.length;
+  displayLikeCounter(likesArray) {
+    this._likeCounter.textContent = likesArray;
   }
 
   createCard() {
