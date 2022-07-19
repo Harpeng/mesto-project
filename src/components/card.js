@@ -26,6 +26,8 @@ class Card {
     return cardElement;
   }
 
+
+
   isLiked() {
       return Boolean(this._likes.find((likeObj) => {
         return likeObj._id === this._userId;
@@ -36,11 +38,6 @@ class Card {
   updateLike() {
     const cardElement = this._getElement();
     const likeButton = cardElement.querySelector('.elements__like-button');
-    const likeCounter = cardElement.querySelector('.elements__like-counter');
-
-    likeCounter.textContent = this._likes.length;
-
-    console.log('likeCounter', likeCounter);
 
     if(isLiked(this._likes, this._userId)){
       likeButton.classList.add('elements__like-button_active');
@@ -49,19 +46,27 @@ class Card {
     }
   }
 
-  createCard(userId) {
+  displayLikeCounter() {
+    this._likeCounter.textContent = this._likes.length;
+  }
+
+  createCard() {
     this._element = this._getElement();
 
     this._element.querySelector('.elements__image').src = this._cardLink;
     this._element.querySelector('.elements__text').textContent = this._cardName;
     this._element.querySelector('.elements__image').alt = this._cardName;
     this._delete = this._element.querySelector('.elements__trash');
+    this._likeCounter = this._element.querySelector('.elements__like-counter');
+
+
+    this.displayLikeCounter(this._likes.length);
 
     if(this._cardOwner !== this._userId) {
       this._delete.remove();
     }
 
-    console.log('привет',this.updateLike(userId));
+    console.log('привет',this.updateLike());
 
     this._delete.addEventListener('click', () => { this._handleDelete(this._id, this._element)});
 
