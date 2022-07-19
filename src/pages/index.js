@@ -1,11 +1,41 @@
 import './index.css';
 import {enableValidation, hideValidity, toggleButtonState} from '../components/validate.js'
 import {defaultValueInput, openPopup, closePopup} from '../components/modal.js';
-import {popupCloseChangeAvatar, formChangeAvatar, avatar, inputChangeAvatar, popupButtonChangeAvatar, avatarChangePopup, profileChangeAvatarButton, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup, enableValidationConfig, dataLoading} from '../utils/constants.js';
-import {createCard, updateLike, handleButtonDeleteCard} from '../components/card.js';
+import {
+  popupCloseChangeAvatar,
+  formChangeAvatar,
+  avatar,
+  inputChangeAvatar,
+  popupButtonChangeAvatar,
+  avatarChangePopup,
+  profileChangeAvatarButton,
+  profileAddButton,
+  profileEditButton,
+  formElementEdit,
+  formElementAdd,
+  popupButtonAdd,
+  popupButtonEdit,
+  popupCloseEdit,
+  popupAddClose,
+  popupImgClose,
+  inputPlace,
+  inputSource,
+  cardContainer,
+  nameInput,
+  jobInput,
+  userName,
+  userDescription,
+  popupProfile,
+  popupImage,
+  cardPopup,
+  enableValidationConfig,
+  dataLoading,
+  cardTemplate
+} from '../utils/constants.js';
+import {Card, updateLike, handleButtonDeleteCard} from '../components/card.js';
 import Api from '../components/api.js'
 
- export let userId = null;
+let userId = null;
 
 
  // получение карточек и информации о пользователе с сервера
@@ -27,6 +57,7 @@ api.getAllInfo()
     userId = user._id;
 
     cards.reverse().forEach((data) => {
+      console.log('data', data);
       renderCard(data, cardContainer, userId)
     });
   })
@@ -45,7 +76,7 @@ api.getAllInfo()
     const handleAvatarFormSubmit = (evt) => {
       evt.preventDefault();
       dataLoading(popupButtonChangeAvatar, true);
-      replaceUserAvatar({avatar: inputChangeAvatar.value })
+      api.replaceUserAvatar({avatar: inputChangeAvatar.value })
         .then(() => {
           avatar.src = inputChangeAvatar.value;
         })
@@ -76,7 +107,7 @@ enableValidation(enableValidationConfig);
 const handleProfileFormSubmit = (evt) => {                                                                              
   evt.preventDefault();
   dataLoading(popupButtonEdit, true);
-  editProfile({name: nameInput.value, about: jobInput.value})
+  api.editProfile({name: nameInput.value, about: jobInput.value})
     .then(() => {
       userName.textContent = nameInput.value;
       userDescription.textContent = jobInput.value;
@@ -133,7 +164,7 @@ profileAddButton.addEventListener('click', () => {
 const addToContainer = function(evt) {
   evt.preventDefault();
   dataLoading(popupButtonAdd, true);
-  addCards({name: inputPlace.value, link: inputSource.value})
+  api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
       renderCard(dataFromServer, cardContainer, userId);
     closePopup(cardPopup);
@@ -149,7 +180,7 @@ const addToContainer = function(evt) {
 
 // функция изменения лайка
 const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
-  changeLikeCondition(cardId, isLiked)
+  api.changeLikeCondition(cardId, isLiked)
     .then((dataFromServer) => {
       updateLike(cardElement,dataFromServer.likes, userId)
     })
@@ -160,7 +191,7 @@ const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
 
 //функция удаления карточек
 const handleDeleteCard = (cardId, cardElement) => {
-  deleteCards(cardId)
+  api.deleteCards(cardId)
     .then(() => {
       handleButtonDeleteCard(cardElement)
     })
@@ -172,11 +203,22 @@ const handleDeleteCard = (cardId, cardElement) => {
 
 //объявленная переменная с функцией отображения карточек на сайте
 const renderCard = function(data, container, userId) {
-  const card = createCard(data, userId, handleChangeLikeCondition, handleDeleteCard);
-  container.prepend(card);
+  //const card = createCard(data, userId, handleChangeLikeCondition, handleDeleteCard);
+
+  const card = new Card(
+    data,
+    '.card-template',
+    userId
+  );
+  //console.log(card);
+  const newCard = card.createCard()
+  container.prepend(newCard);
   }
 
 // слушатель формы на добавление новых карточек
 formElementAdd.addEventListener('submit', addToContainer);
+
+  
+
 
   
