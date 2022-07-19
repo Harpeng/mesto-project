@@ -32,7 +32,7 @@ import {
   dataLoading,
   cardTemplate
 } from '../utils/constants.js';
-import {Card,/**updateLike, */ handleButtonDeleteCard} from '../components/card.js';
+import {Card} from '../components/card.js';
 import Api from '../components/api.js'
 
 let userId = null;
@@ -49,10 +49,10 @@ const api = new Api(
 )
 
 //функция удаления карточек
-const handleDeleteCard = (cardId, cardElement) => {
-  api.deleteCards(cardId)
+const handleDeleteCard = (cardId, card) => {
+  api.deleteCard(cardId)
     .then(() => {
-      handleButtonDeleteCard(cardElement)
+      card.deleteCard();
     })
     .catch((err) => {
       console.log(`Ошибка удаления карточки: ${err}`)

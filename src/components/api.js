@@ -8,7 +8,6 @@ export default class Api {
   }
 
   _onResponce(res) {
-    console.log(res);
     return res.ok ? res.json() : Promise.reject('Сервер недоступен');
   }
 
@@ -59,7 +58,7 @@ export default class Api {
       .then(this._onResponce)
     }
 
-  deleteCards(cardId) {
+  deleteCard(cardId) {
     return fetch(`${this._cardsUrl}/${cardId}`, {
         method: "DELETE",
         headers: this._headers
