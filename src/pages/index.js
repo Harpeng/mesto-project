@@ -48,6 +48,16 @@ const api = new Api(
   }
 )
 
+//функция удаления карточек
+const handleDeleteCard = (cardId, cardElement) => {
+  api.deleteCards(cardId)
+    .then(() => {
+      handleButtonDeleteCard(cardElement)
+    })
+    .catch((err) => {
+      console.log(`Ошибка удаления карточки: ${err}`)
+    })
+}
 
 api.getAllInfo()
   .then(([cards, user]) => {
@@ -58,7 +68,7 @@ api.getAllInfo()
 
     cards.reverse().forEach((data) => {
       console.log('data', data);
-      renderCard(data, cardContainer, userId)
+      renderCard(data, handleDeleteCard, cardContainer, userId);
     });
   })
     .catch((err) => {
@@ -166,7 +176,7 @@ const addToContainer = function(evt) {
   dataLoading(popupButtonAdd, true);
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
-      renderCard(dataFromServer, cardContainer, userId);
+      renderCard(dataFromServer, handleDeleteCard, cardContainer, userId);
     closePopup(cardPopup);
     evt.target.reset();
   })
@@ -189,29 +199,22 @@ const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
     })
 }
 
-//функция удаления карточек
-const handleDeleteCard = (cardId, cardElement) => {
-  api.deleteCards(cardId)
-    .then(() => {
-      handleButtonDeleteCard(cardElement)
-    })
-    .catch((err) => {
-      console.log(`Ошибка удаления карточки: ${err}`)
-    })
-}
+
 
 
 //объявленная переменная с функцией отображения карточек на сайте
-const renderCard = function(data, container, userId) {
+const renderCard = function(data, handleDelete, container, userId) {
   //const card = createCard(data, userId, handleChangeLikeCondition, handleDeleteCard);
+  console.log('userId', userId);
 
   const card = new Card(
-    data,
+    data, 
+    handleDelete,
     '.card-template',
     userId
   );
   //console.log(card);
-  const newCard = card.createCard()
+  const newCard = card.createCard();
   container.prepend(newCard);
   }
 

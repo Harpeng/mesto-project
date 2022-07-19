@@ -3,17 +3,19 @@ import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.
 export {Card, updateLike, handleButtonDeleteCard};
 
 class Card {
-  constructor(data, templateSelector, userId){
+  constructor(data, /*handleclick, handlelike,*/ handleDelete, templateSelector, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
     this._id = data._id;
     this._templateSelector = templateSelector;
+    this._userId = userId;
+    this._handleDelete = handleDelete;
   }
 
   _getElement() {
     const cardElement = document
-    .querySelector(this.templateSelector)
+    .querySelector(this._templateSelector)
     .content
     .querySelector('.elements__card')
     .cloneNode(true);
@@ -22,17 +24,25 @@ class Card {
   }
 
 
+//   handleButtonDeleteCard() {
+//   this._element.remove()
+//   this._element = null;
+// };
+
+
   createCard() {
     this._element = this._getElement();
 
     this._element.querySelector('.elements__image').src = this._cardLink;
-    this._element.querySelector('.elements__text').src = this._cardName;
+    this._element.querySelector('.elements__text').textContent = this._cardName;
     this._element.querySelector('.elements__image').alt = this._cardName;
     this._delete = this._element.querySelector('.elements__trash');
 
-    if(this._cardOwner !== userId) {
+    if(this._cardOwner !== this._userId) {
       this._delete.remove();
     }
+
+    this._delete.addEventListener('click', () => { this._handleDelete(this._id, this._element)});
 
     return this._element;
   }
@@ -58,7 +68,7 @@ const updateLike = (cardElement, likesArray, userId) => {
   
   likeCounter.textContent = likesArray.length;
 
-  if(isLiked(likesArray, userId)){
+  if(isLiked(likesArray, this._userId)){
     likeButton.classList.add('elements__like-button_active');
   } else {
     likeButton.classList.remove('elements__like-button_active');
