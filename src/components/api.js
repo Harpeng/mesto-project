@@ -7,6 +7,7 @@ export default class Api {
     this._headers = headers;
   }
 
+
   _getResponce(res) {
     console.log(res);
     return res.ok ? res.json() : Promise.reject('Сервер недоступен');
@@ -59,7 +60,7 @@ export default class Api {
       .then(this._getResponce)
     }
 
-  deleteCards(cardId) {
+  deleteCard(cardId) {
     return fetch(`${this._cardsUrl}/${cardId}`, {
         method: "DELETE",
         headers: this._headers

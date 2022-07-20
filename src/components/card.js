@@ -1,6 +1,6 @@
 import {openPopup} from './modal';
 import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.js';
-export {Card,/**updateLike */ handleButtonDeleteCard};
+export {Card};
 
 class Card {
   constructor(data, /*handleclick, handlelike,*/ handleDelete, templateSelector, userId){
@@ -26,7 +26,10 @@ class Card {
     return cardElement;
   }
 
-
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
 
   isLiked() {
       return Boolean(this._likes.find((likeObj) => {
@@ -66,19 +69,13 @@ class Card {
       this._delete.remove();
     }
 
-    this._delete.addEventListener('click', () => { this._handleDelete(this._id, this._element)});
+    console.log('привет',this.updateLike());
+
+    this._delete.addEventListener('click', () => { this._handleDelete(this._id, this)});
 
     return this._element;
   }
 }
-
-
- // объявленная переменная с функцией удаления фото
- const handleButtonDeleteCard = (cardElement) => {
-  cardElement.remove()
-  cardElement = null
-};
-
 
 const isLiked = (likesArray, userId) => {
   return Boolean(likesArray.find((likeObj) => {
