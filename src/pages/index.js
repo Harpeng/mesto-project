@@ -1,6 +1,6 @@
 import './index.css';
 import {enableValidation, hideValidity, toggleButtonState} from '../components/validate.js'
-import {defaultValueInput, openPopup, closePopup} from '../components/modal.js';
+import {defaultValueInput, Popup} from '../components/popup.js';
 import {
   popupCloseChangeAvatar,
   formChangeAvatar,
@@ -73,12 +73,22 @@ api.getAllInfo()
     .catch((err) => {
       console.log(`Ошибка получения информации с сервера: ${err}`)
     })
+
+    // попапы со слушателями !!!
+    const popupEdit = new Popup ('.popup_type-edit');
+    popupEdit.setEventListener();
+
+    const popupAdd = new Popup ('.popup_type-add');
+    popupAdd.setEventListener();
+
+    const popupAvatar = new Popup ('.popup_type-avatar');
+    popupAvatar.setEventListener();
   
     // слушатель на открытие попапа изменения аватара
     profileChangeAvatarButton.addEventListener('click', () => {
       toggleButtonState(popupButtonChangeAvatar, false, enableValidationConfig.inactiveButtonClass);
       hideValidity(avatarChangePopup);
-      openPopup(avatarChangePopup);
+      popupAvatar.openPopup();
     });
 
     // функция формы смены аватара
@@ -90,7 +100,7 @@ api.getAllInfo()
           avatar.src = inputChangeAvatar.value;
         })
         .then(() => {
-          closePopup(avatarChangePopup);
+          popupAvatar.closePopup();
           evt.target.reset();
         })
         .catch((err) => {
@@ -104,10 +114,7 @@ api.getAllInfo()
     // слушатель на отправку сабмита попапа изменения аватара
     formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
-    // слушатель на закратие попапа изменение аватара
-    popupCloseChangeAvatar.addEventListener('click', () => {
-      closePopup(avatarChangePopup);
-    })
+
 
     // вызвана функция проверки валидности
 enableValidation(enableValidationConfig);
@@ -122,7 +129,7 @@ const handleProfileFormSubmit = (evt) => {
       userDescription.textContent = jobInput.value;
     })
     .then(() => {
-      closePopup(popupProfile);
+      popupEdit.closePopup();
       evt.target.reset();
     })
     .catch((err) => {
@@ -138,23 +145,14 @@ const handleProfileFormSubmit = (evt) => {
 profileEditButton.addEventListener('click', () => {
   toggleButtonState(popupButtonEdit, false, enableValidationConfig.inactiveButtonClass);
     hideValidity(popupProfile);
-    openPopup (popupProfile);
+    popupEdit.openPopup()
     defaultValueInput (popupProfile);
-});
-
-// слушатель на закрытие попап с редактированием данных
-popupCloseEdit.addEventListener('click', () => {
-    closePopup(popupProfile);
 });
 
 //слушатель формы редактирования профиля
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 
-//слушатель закрытия попап с добавлением карточки
-popupAddClose.addEventListener('click', () => {
-    closePopup(cardPopup);
-});
 
 //слушатель закрытия попап с картинкой
 popupImgClose.addEventListener('click', () => {
@@ -164,7 +162,7 @@ popupImgClose.addEventListener('click', () => {
 //слушатель открытия попап с добавлением карточки
 profileAddButton.addEventListener('click', () => {
   toggleButtonState(popupButtonAdd, false, enableValidationConfig.inactiveButtonClass);
-  openPopup(cardPopup);
+  popupAdd.openPopup();
   hideValidity(cardPopup);
 });
 
@@ -176,7 +174,7 @@ const addToContainer = function(evt) {
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
       renderCard(dataFromServer, handleDeleteCard, cardContainer, userId);
-    closePopup(cardPopup);
+    popupAdd.closePopup();
     evt.target.reset();
   })
     .catch((err) => {
