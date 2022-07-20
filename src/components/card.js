@@ -66,8 +66,6 @@ class Card {
       this._delete.remove();
     }
 
-    console.log('привет',this.updateLike());
-
     this._delete.addEventListener('click', () => { this._handleDelete(this._id, this._element)});
 
     return this._element;

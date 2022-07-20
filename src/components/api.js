@@ -7,7 +7,7 @@ export default class Api {
     this._headers = headers;
   }
 
-  _onResponce(res) {
+  _getResponce(res) {
     console.log(res);
     return res.ok ? res.json() : Promise.reject('Сервер недоступен');
   }
@@ -17,7 +17,7 @@ export default class Api {
       method: "GET",
       headers: this._headers
     })
-    .then(this._onResponce)
+    .then(this._getResponce)
   }
 
   _getUserInfo() {
@@ -25,7 +25,7 @@ export default class Api {
       method: "GET",
       headers: this._headers
     })
-    .then(this._onResponce)
+    .then(this._getResponce)
   }
 
   getAllInfo() {
@@ -38,7 +38,7 @@ export default class Api {
        headers: this._headers,
        body: JSON.stringify(data)
      })
-     .then(this._onResponce)
+     .then(this._getResponce)
    }
 
   editProfile(data) {
@@ -47,7 +47,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-    .then(this._onResponce)
+    .then(this._getResponce)
   }
 
   replaceUserAvatar(avatarLink) {
@@ -56,7 +56,7 @@ export default class Api {
         headers: this._headers,
         body: JSON.stringify(avatarLink)
       })
-      .then(this._onResponce)
+      .then(this._getResponce)
     }
 
   deleteCards(cardId) {
@@ -64,7 +64,7 @@ export default class Api {
         method: "DELETE",
         headers: this._headers
       })
-      .then(this._onResponce)
+      .then(this._getResponce)
     }
   
   changeLikeCondition(cardId, isLike) {
@@ -72,7 +72,7 @@ export default class Api {
         method: isLike ? "DELETE" : "PUT",
         headers: this._headers
       })
-      .then(this._onResponce)
+      .then(this._getResponce)
     }
   
 }
