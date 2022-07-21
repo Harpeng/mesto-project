@@ -19,7 +19,7 @@ export class Popup {
   
   // функция открытия попап
   
-  openPopup(popup){
+  openPopup(){
     this._popup.classList.add('popup_is-opened');
   
     this._popup.addEventListener('mousedown', this._clickOnOverlay);
@@ -28,7 +28,7 @@ export class Popup {
   
   // функция закрытия попап
   
-  closePopup(popup) {
+  closePopup() {
     this._popup.classList.remove('popup_is-opened');
     
     this._popup.removeEventListener('mousedown', this._clickOnOverlay);

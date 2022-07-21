@@ -1,8 +1,8 @@
 import './index.css';
-import {enableValidation, hideValidity, toggleButtonState} from '../components/validate.js'
+import FormValidator from '../components/FormValidator.js';
 import {defaultValueInput, Popup} from '../components/popup.js';
+import {PopupImage} from '../components/popup-image.js';
 import {
-  popupCloseChangeAvatar,
   formChangeAvatar,
   avatar,
   inputChangeAvatar,
@@ -15,8 +15,6 @@ import {
   formElementAdd,
   popupButtonAdd,
   popupButtonEdit,
-  popupCloseEdit,
-  popupAddClose,
   popupImgClose,
   inputPlace,
   inputSource,
@@ -26,7 +24,6 @@ import {
   userName,
   userDescription,
   popupProfile,
-  popupImage,
   cardPopup,
   enableValidationConfig,
   dataLoading,
@@ -83,11 +80,21 @@ api.getAllInfo()
 
     const popupAvatar = new Popup ('.popup_type-avatar');
     popupAvatar.setEventListener();
+
+    const popupImage = new PopupImage('.popup_type-image');
+    popupImage.setEventListener();
+
+    const profileEditValidation = new FormValidator(enableValidationConfig, formElementEdit);
+    profileEditValidation.enableValidation();
+    const profileAddCardValidation = new FormValidator(enableValidationConfig, formElementAdd);
+    profileAddCardValidation.enableValidation();
+    const changeAvatarValidation = new FormValidator(enableValidationConfig, formChangeAvatar);
+    changeAvatarValidation.enableValidation();
   
     // слушатель на открытие попапа изменения аватара
     profileChangeAvatarButton.addEventListener('click', () => {
-      toggleButtonState(popupButtonChangeAvatar, false, enableValidationConfig.inactiveButtonClass);
-      hideValidity(avatarChangePopup);
+      changeAvatarValidation.toggleButtonState();
+      changeAvatarValidation.hideValidity();
       popupAvatar.openPopup();
     });
 
@@ -115,10 +122,6 @@ api.getAllInfo()
     formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
 
-
-    // вызвана функция проверки валидности
-enableValidation(enableValidationConfig);
-
 // функция формы отправки данных попап редактирования профиля
 const handleProfileFormSubmit = (evt) => {                                                                              
   evt.preventDefault();
@@ -143,8 +146,8 @@ const handleProfileFormSubmit = (evt) => {
 
 // слушатель на открытия попап с редактированием данных
 profileEditButton.addEventListener('click', () => {
-  toggleButtonState(popupButtonEdit, false, enableValidationConfig.inactiveButtonClass);
-    hideValidity(popupProfile);
+  profileEditValidation.toggleButtonState();
+  profileEditValidation.hideValidity();
     popupEdit.openPopup()
     defaultValueInput (popupProfile);
 });
@@ -156,14 +159,14 @@ formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 //слушатель закрытия попап с картинкой
 popupImgClose.addEventListener('click', () => {
-  closePopup(popupImage);
+  popupImage.closePopup();
 })
 
 //слушатель открытия попап с добавлением карточки
 profileAddButton.addEventListener('click', () => {
-  toggleButtonState(popupButtonAdd, false, enableValidationConfig.inactiveButtonClass);
+  profileAddCardValidation.toggleButtonState();
   popupAdd.openPopup();
-  hideValidity(cardPopup);
+  profileAddCardValidation.hideValidity();
 });
 
 //объявленная переменная с функцией добавление новых карточек через форму

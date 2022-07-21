@@ -40,8 +40,8 @@ const enableValidationConfig = {
 /** карточки */
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__card');
 const cardContainer = document.querySelector('.elements__container');
-const popupPic = document.querySelector('.popup__image');
-const popupText = document.querySelector('.popup__text');
+//const popupPic = document.querySelector('.popup__image');
+//const popupText = document.querySelector('.popup__text');
 const initialCards = [
     {
       name: 'Архыз',
@@ -79,4 +79,4 @@ const initialCards = [
     }
   }
   
-  export{avatar, popupButtonChangeAvatar, inputChangeAvatar, avatarChangePopup, popupCloseChangeAvatar, formChangeAvatar, profileChangeAvatarButton, dataLoading, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose, popupImgClose, cardTemplate, popupPic, popupText, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, popupImage, cardPopup};
+  export{popupImgClose, avatar, popupButtonChangeAvatar, inputChangeAvatar, avatarChangePopup, popupCloseChangeAvatar, formChangeAvatar, profileChangeAvatarButton, dataLoading, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose,  cardTemplate, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, cardPopup};
