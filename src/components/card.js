@@ -3,7 +3,7 @@ import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.
 export {Card};
 
 class Card {
-  constructor(data, /*handleclick, handlelike,*/ handleDelete, templateSelector, userId){
+  constructor(data, /*handleclick, handlelike,*/ handleDelete, templateSelector, handleCardClick, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
@@ -11,6 +11,7 @@ class Card {
     this._likes = data.likes;
     this._handleDelete = handleDelete;
     this._templateSelector = templateSelector;
+    this._handleCardClock = handleCardClick;
     this._userId = userId;
     
     this._isLiked = false;
@@ -56,7 +57,9 @@ class Card {
   createCard() {
     this._element = this._getElement();
 
-    this._element.querySelector('.elements__image').src = this._cardLink;
+    const cardImage = this._element.querySelector('.elements__image');
+
+    cardImage.src = this._cardLink;
     this._element.querySelector('.elements__text').textContent = this._cardName;
     this._element.querySelector('.elements__image').alt = this._cardName;
     this._delete = this._element.querySelector('.elements__trash');
@@ -69,9 +72,9 @@ class Card {
       this._delete.remove();
     }
 
-    console.log('привет',this.updateLike());
+    cardImage.addEventListener('click', () => { this._handleCardClick(this._cardName, this._cardLink)} );
 
-    this._delete.addEventListener('click', () => { this._handleDelete(this._id, this)});
+    this._delete.addEventListener('click', () => { this._handleDelete(this._id, this) });
 
     return this._element;
   }

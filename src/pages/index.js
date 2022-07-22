@@ -1,7 +1,7 @@
 import './index.css';
 import FormValidator from '../components/FormValidator.js';
 import {defaultValueInput, Popup} from '../components/popup.js';
-import {PopupImage} from '../components/popup-image.js';
+import {PopupImage} from '../components/popup-with-image.js';
 import {
   formChangeAvatar,
   avatar,
@@ -55,6 +55,12 @@ const handleDeleteCard = (cardId, card) => {
       console.log(`Ошибка удаления карточки: ${err}`)
     })
 }
+
+// открытие попапа с картинкой карточки
+const handleCardClick = (name, link) => {
+  popupWithImage.open(name, link);
+}
+
 
 api.getAllInfo()
   .then(([cards, user]) => {
@@ -200,14 +206,13 @@ const addToContainer = function(evt) {
 // }
 
 
-
-
 //объявленная переменная с функцией отображения карточек на сайте
 const renderCard = function(data, handleDelete, container, userId) {
   const card = new Card(
     data, 
     handleDelete,
     '.card-template',
+    handleCardClick,
     userId
   );
   const newCard = card.createCard();
