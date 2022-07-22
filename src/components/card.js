@@ -3,7 +3,7 @@ import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.
 export {Card};
 
 class Card {
-  constructor(data, /*handleclick, handlelike,*/ handleDelete, templateSelector, userId){
+  constructor(data, /*handleclick,*/ handleDelete, templateSelector, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
@@ -12,7 +12,6 @@ class Card {
     this._handleDelete = handleDelete;
     this._templateSelector = templateSelector;
     this._userId = userId;
-    
     this._isLiked = false;
   }
 
@@ -31,21 +30,17 @@ class Card {
     this._element = null;
   }
 
-  isLiked() {
+  isLiked = () => {
       return Boolean(this._likes.find((likeObj) => {
         return likeObj._id === this._userId;
       }))
   }
 
-
-  updateLike() {
-    const cardElement = this._getElement();
-    const likeButton = cardElement.querySelector('.elements__like-button');
-
-    if(isLiked(this._likes, this._userId)){
-      likeButton.classList.add('elements__like-button_active');
+  updateLike = (likeBtn) => {
+    if(this.isLiked()){
+      likeBtn.classList.add('elements__like-button_active');
     } else {
-      likeButton.classList.remove('elements__like-button_active');
+      likeBtn.classList.remove('elements__like-button_active');
     }
   }
 
@@ -59,29 +54,24 @@ class Card {
     this._element.querySelector('.elements__image').src = this._cardLink;
     this._element.querySelector('.elements__text').textContent = this._cardName;
     this._element.querySelector('.elements__image').alt = this._cardName;
-    this._delete = this._element.querySelector('.elements__trash');
+    this._deleteBtn = this._element.querySelector('.elements__trash');
+    this._likeBtn = this._element.querySelector('.elements__like-button');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
 
+    this.updateLike(this._likeBtn);
 
     this.displayLikeCounter(this._likes.length);
 
     if(this._cardOwner !== this._userId) {
-      this._delete.remove();
+      this._deleteBtn.remove();
     }
 
-    console.log('привет',this.updateLike());
-
-    this._delete.addEventListener('click', () => { this._handleDelete(this._id, this)});
+    this._deleteBtn.addEventListener('click', () => { this._handleDelete(this._id, this)});
 
     return this._element;
   }
 }
 
-const isLiked = (likesArray, userId) => {
-  return Boolean(likesArray.find((likeObj) => {
-    return likeObj._id === userId
-  }))
-}
 
 /**const updateLike = (cardElement, likesArray, userId) => {
   const likeButton = cardElement.querySelector('.elements__like-button');
