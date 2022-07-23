@@ -3,7 +3,7 @@ import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.
 export {Card};
 
 class Card {
-  constructor(data, /*handleclick,*/ handleDelete, templateSelector, userId){
+  constructor(data, handleDelete, templateSelector, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
@@ -36,11 +36,11 @@ class Card {
       }))
   }
 
-  updateLike = (likeBtn) => {
+  _updateLike = () => {
     if(this.isLiked()){
-      likeBtn.classList.add('elements__like-button_active');
+      this._likeBtn.classList.add('elements__like-button_active')
     } else {
-      likeBtn.classList.remove('elements__like-button_active');
+      this._likeBtn.classList.remove('elements__like-button_active');
     }
   }
 
@@ -48,7 +48,7 @@ class Card {
     this._likeCounter.textContent = likesArray;
   }
 
-  createCard() {
+  createCard = () => {
     this._element = this._getElement();
 
     this._element.querySelector('.elements__image').src = this._cardLink;
@@ -59,11 +59,13 @@ class Card {
     this._likeCounter = this._element.querySelector('.elements__like-counter');
 
     this.displayLikeCounter(this._likes.length);
+    this._updateLike();
 
     if(this._cardOwner !== this._userId) {
       this._deleteBtn.remove();
     }
-    this._likeBtn.addEventListener('click', () => { this.updateLike(this._id, this)});
+    console.log('привет',)
+    this._likeBtn.addEventListener('click', () => { this._updateLike()});
     this._deleteBtn.addEventListener('click', () => { this._handleDelete(this._id, this)});
     return this._element;
   

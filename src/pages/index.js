@@ -30,7 +30,8 @@ import {
   cardTemplate
 } from '../utils/constants.js';
 import {Card} from '../components/card.js';
-import Api from '../components/api.js'
+import Api from '../components/api.js';
+import UserInfo from '../components/userInfo.js';
 
 let userId = null;
 
@@ -60,14 +61,14 @@ const handleDeleteCard = (cardId, card) => {
 //const handleCardClick = (name, link) => {
   //popupWithImage.open(name, link);
 //}
-
+//console.log(userName, userDescription);
+const userInfo = new UserInfo(userName, userDescription);
 
 api.getAllInfo()
   .then(([cards, user]) => {
-    userName.textContent = user.name;
-    userDescription.textContent = user.about;
-    avatar.src = user.avatar;
-    userId = user._id;
+    userInfo.setUserInfo(user.name, user.about);
+    userInfo.updateUserInfo();
+    userId = user._id
 
     cards.reverse().forEach((data) => {
       renderCard(data, handleDeleteCard, cardContainer, userId);
@@ -155,7 +156,7 @@ profileEditButton.addEventListener('click', () => {
   profileEditValidation.toggleButtonState();
   profileEditValidation.hideValidity();
     popupEdit.openPopup()
-    defaultValueInput (popupProfile);
+    userInfo.setUserInfo ();
 });
 
 //слушатель формы редактирования профиля
@@ -195,16 +196,16 @@ const addToContainer = function(evt) {
 };
 
 // функция изменения лайка
-// const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
-//   api.changeLikeCondition(cardId, isLiked)
-//     .then((dataFromServer) => {
-//       updateLike(cardElement,dataFromServer.likes, userId)
-//     })
-//     .catch((err) => {
-//       console.log(`Ошибка изменения лайка: ${err}`);
-//     })
-// }
-
+/* const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
+    api.changeLikeCondition(cardId, isLiked)
+     .then((dataFromServer) => {
+      updateLike(cardElement,dataFromServer.likes, userId)
+    })
+     .catch((err) => {
+       console.log(`Ошибка изменения лайка: ${err}`);
+     })
+ }
+*/
 
 //объявленная переменная с функцией отображения карточек на сайте
 const renderCard = function(data, handleDelete, container, userId) {
@@ -216,6 +217,7 @@ const renderCard = function(data, handleDelete, container, userId) {
   );
   const newCard = card.createCard();
   container.prepend(newCard);
+
   }
 
 // слушатель формы на добавление новых карточек
