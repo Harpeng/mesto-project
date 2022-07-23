@@ -196,7 +196,6 @@ const addToContainer = function(evt) {
 const handleLike = (cardId, card, isLiked) => {
   api.changeLikeCondition(cardId, isLiked)
     .then((dataFromServer) => {
-    console.log(dataFromServer.likes);
     card.updateLike(dataFromServer.likes)
   })
     .catch((err) => {
@@ -214,18 +213,6 @@ const handleDeleteCard = (cardId, card) => {
       console.log(`Ошибка удаления карточки: ${err}`)
     })
 }
-
-// функция изменения лайка
-/* const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
-    api.changeLikeCondition(cardId, isLiked)
-     .then((dataFromServer) => {
-      updateLike(cardElement,dataFromServer.likes, userId)
-    })
-     .catch((err) => {
-       console.log(`Ошибка изменения лайка: ${err}`);
-     })
- }
-*/
 
 //объявленная переменная с функцией отображения карточек на сайте
 const renderCard = function(data, handleLike, handleDelete, container, userId) {
