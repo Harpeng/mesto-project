@@ -1,7 +1,14 @@
 export default class UserInfo {
-    constructor(nameElement, aboutElement) {
+    constructor(nameElement, aboutElement, avatarElement) {
         this._nameElem = nameElement;
         this._aboutElem = aboutElement;
+        this._avatarElem = avatarElement;
+    }
+
+    getUserAvatar = () => {
+        return {
+            avatar: this._avatar
+        }
     }
 
     getUserInfo = () => {
@@ -16,8 +23,17 @@ export default class UserInfo {
         this._about = newAbout;
       }
 
+    setUserAvatar = (newAvatar) => {
+        this._avatar = newAvatar;
+    }
+
     updateUserInfo = () => {
         this._nameElem.textContent = this._userName;
         this._aboutElem.textContent = this._about;
-      }
+        
+    }
+    
+    updateUserAvatar = () => {
+        this._avatarElem.src = this._avatar;
+    }
 }

@@ -62,13 +62,15 @@ const handleDeleteCard = (cardId, card) => {
   //popupWithImage.open(name, link);
 //}
 //console.log(userName, userDescription);
-const userInfo = new UserInfo(userName, userDescription);
+const userInfo = new UserInfo(userName, userDescription, avatar );
 
 api.getAllInfo()
   .then(([cards, user]) => {
     userInfo.setUserInfo(user.name, user.about);
     userInfo.updateUserInfo();
-    userId = user._id
+    userInfo.setUserAvatar(user.avatar);
+    userInfo.updateUserAvatar();
+    userId = user._id;
 
     cards.reverse().forEach((data) => {
       renderCard(data, handleDeleteCard, cardContainer, userId);
@@ -111,7 +113,10 @@ api.getAllInfo()
       dataLoading(popupButtonChangeAvatar, true);
       api.replaceUserAvatar({avatar: inputChangeAvatar.value })
         .then(() => {
-          avatar.src = inputChangeAvatar.value;
+          userInfo.setUserAvatar(inputChangeAvatar.value);
+          userInfo.updateUserAvatar();
+
+         // avatar.src = inputChangeAvatar.value;
         })
         .then(() => {
           popupAvatar.closePopup();
