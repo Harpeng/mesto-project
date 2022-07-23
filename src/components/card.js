@@ -3,13 +3,14 @@ import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.
 export {Card};
 
 class Card {
-  constructor(data, handleDelete, templateSelector, userId){
+  constructor(data, handleLike, handleDelete, templateSelector, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
     this._id = data._id;
     this._likes = data.likes;
     this._handleDelete = handleDelete;
+    this._handleLike = handleLike;
     this._templateSelector = templateSelector;
     this._userId = userId;
     this._isLiked = false;
@@ -30,23 +31,25 @@ class Card {
     this._element = null;
   }
 
-  isLiked = () => {
+  _isLiked = () => {
       return Boolean(this._likes.find((likeObj) => {
         return likeObj._id === this._userId;
       }))
   }
 
-  _updateLike = () => {
-    if(this.isLiked()){
-      this._likeBtn.classList.add('elements__like-button_active')
-    } else {
-      this._likeBtn.classList.remove('elements__like-button_active');
-    }
+  updateLike = (likesArr) => {
+    this._likeCounter.textContent = likesArr.length;
+    console.log(this._isLiked);
+    // if(this._isLiked()){
+    //   this._likeBtn.classList.add('elements__like-button_active')
+    // } else {
+    //   this._likeBtn.classList.remove('elements__like-button_active');
+    // }
   }
 
-  displayLikeCounter(likesArray) {
-    this._likeCounter.textContent = likesArray;
-  }
+ // displayLikeCounter(likesArray) {
+ //   this._likeCounter.textContent = likesArray;
+ // }
 
   createCard = () => {
     this._element = this._getElement();
@@ -58,15 +61,16 @@ class Card {
     this._likeBtn = this._element.querySelector('.elements__like-button');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
 
-    this.displayLikeCounter(this._likes.length);
-    this._updateLike();
+  //  this.displayLikeCounter(this._likes.length);
+    //console.log(this._likes);
+   this.updateLike(this._likes);
 
     if(this._cardOwner !== this._userId) {
       this._deleteBtn.remove();
     }
-    console.log('привет',)
-    this._likeBtn.addEventListener('click', () => { this._updateLike()});
-    this._deleteBtn.addEventListener('click', () => { this._handleDelete(this._id, this)});
+    //console.log('привет',)
+   // this._likeBtn.addEventListener('click', () => { this._handleLike(this._id, this, this._isLiked()) });
+    this._deleteBtn.addEventListener('click', () => { this._handleDelete(this._id, this) });
     return this._element;
   
   }

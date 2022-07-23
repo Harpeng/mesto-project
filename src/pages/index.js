@@ -46,16 +46,7 @@ const api = new Api(
   }
 )
 
-//функция удаления карточек
-const handleDeleteCard = (cardId, card) => {
-  api.deleteCard(cardId)
-    .then(() => {
-      card.deleteCard();
-    })
-    .catch((err) => {
-      console.log(`Ошибка удаления карточки: ${err}`)
-    })
-}
+
 
 // открытие попапа с картинкой карточки
 //const handleCardClick = (name, link) => {
@@ -73,7 +64,7 @@ api.getAllInfo()
     userId = user._id;
 
     cards.reverse().forEach((data) => {
-      renderCard(data, handleDeleteCard, cardContainer, userId);
+      renderCard(data, handleLike, handleDeleteCard, cardContainer, userId);
     });
   })
     .catch((err) => {
@@ -202,6 +193,28 @@ const addToContainer = function(evt) {
     });
 };
 
+const handleLike = (cardId, card, isLiked) => {
+  api.changeLikeCondition(cardId, isLiked)
+    .then((dataFromServer) => {
+    console.log(dataFromServer.likes);
+    card.updateLike(dataFromServer.likes)
+  })
+    .catch((err) => {
+      console.log(`Ошибка изменения лайка: ${err}`);
+    })
+}
+
+//функция удаления карточек
+const handleDeleteCard = (cardId, card) => {
+  api.deleteCard(cardId)
+    .then(() => {
+      card.deleteCard();
+    })
+    .catch((err) => {
+      console.log(`Ошибка удаления карточки: ${err}`)
+    })
+}
+
 // функция изменения лайка
 /* const handleChangeLikeCondition = (cardId, isLiked, cardElement) => {
     api.changeLikeCondition(cardId, isLiked)
@@ -215,9 +228,10 @@ const addToContainer = function(evt) {
 */
 
 //объявленная переменная с функцией отображения карточек на сайте
-const renderCard = function(data, handleDelete, container, userId) {
+const renderCard = function(data, handleLike, handleDelete, container, userId) {
   const card = new Card(
     data,
+    handleLike,
     handleDelete,
     '.card-template',
     userId
