@@ -1,6 +1,6 @@
 import './index.css';
 import FormValidator from '../components/FormValidator.js';
-import {defaultValueInput, Popup} from '../components/popup.js';
+import {Popup} from '../components/popup.js';
 import {PopupImage} from '../components/popup-with-image.js';
 import {
   formChangeAvatar,
