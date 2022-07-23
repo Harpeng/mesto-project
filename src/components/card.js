@@ -3,14 +3,13 @@ import {cardTemplate, popupPic, popupText, popupImage} from '../utils/constants.
 export {Card};
 
 class Card {
-  constructor(data, handleLike, handleDelete, templateSelector, userId){
+  constructor(data, /*handleclick,*/ handleDelete, templateSelector, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
     this._id = data._id;
     this._likes = data.likes;
     this._handleDelete = handleDelete;
-    this._handleLike = handleLike;
     this._templateSelector = templateSelector;
     this._userId = userId;
     this._isLiked = false;
@@ -59,25 +58,18 @@ class Card {
     this._likeBtn = this._element.querySelector('.elements__like-button');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
 
-    this.updateLike(this._likeBtn);
-
     this.displayLikeCounter(this._likes.length);
 
     if(this._cardOwner !== this._userId) {
       this._deleteBtn.remove();
     }
-
+    this._likeBtn.addEventListener('click', () => { this.updateLike(this._id, this)});
     this._deleteBtn.addEventListener('click', () => { this._handleDelete(this._id, this)});
-    this._likeBtn.addEventListener("click", () => {this._handleLike();});
     return this._element;
+  
   }
 }
 
-/*const isLiked = (likesArray, userId) => {
-  return Boolean(likesArray.find((likeObj) => {
-    return likeObj._id === userId
-  }))
-}
 
 /**const updateLike = (cardElement, likesArray, userId) => {
   const likeButton = cardElement.querySelector('.elements__like-button');

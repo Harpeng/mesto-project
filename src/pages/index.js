@@ -210,7 +210,6 @@ const addToContainer = function(evt) {
 const renderCard = function(data, handleDelete, container, userId) {
   const card = new Card(
     data,
-    updateLike,
     handleDelete,
     '.card-template',
     userId

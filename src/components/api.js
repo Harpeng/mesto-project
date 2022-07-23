@@ -9,7 +9,6 @@ export default class Api {
 
 
   _getResponce(res) {
-    console.log(res);
     return res.ok ? res.json() : Promise.reject('Сервер недоступен');
   }
 
