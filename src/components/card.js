@@ -1,12 +1,13 @@
 export {Card};
 
 class Card {
-  constructor(data, handleLike, handleDelete, templateSelector, userId){
+  constructor(data, handleCardClick, handleLike, handleDelete, templateSelector, userId){
     this._cardName = data.name;
     this._cardLink = data.link;
     this._cardOwner = data.owner._id;
     this._id = data._id;
     this._likes = data.likes;
+    this._handleCardClick = handleCardClick,
     this._handleDelete = handleDelete;
     this._handleLike = handleLike;
     this._templateSelector = templateSelector;
@@ -47,19 +48,20 @@ class Card {
   createCard = () => {
     this._element = this._getElement();
 
-    this._element.querySelector('.elements__image').src = this._cardLink;
+    this._img = this._element.querySelector('.elements__image');
+    this._img.src = this._cardLink;
     this._element.querySelector('.elements__text').textContent = this._cardName;
     this._element.querySelector('.elements__image').alt = this._cardName;
     this._deleteBtn = this._element.querySelector('.elements__trash');
     this._likeBtn = this._element.querySelector('.elements__like-button');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
 
-   this.updateLike(this._likes);
+    this.updateLike(this._likes);
 
     if(this._cardOwner !== this._userId) {
       this._deleteBtn.remove();
     }
-
+    this._img.addEventListener('click', () => { this._handleCardClick(this._cardName, this._cardLink)} );
     this._likeBtn.addEventListener('click', () => { this._handleLike(this._id, this, this._isLiked()) });
     this._deleteBtn.addEventListener('click', () => { this._handleDelete(this._id, this) });
     return this._element;

@@ -1,7 +1,7 @@
 import './index.css';
 import FormValidator from '../components/FormValidator.js';
 import {Popup} from '../components/popup.js';
-import {PopupImage} from '../components/popup-with-image.js';
+import {PopupWithImage} from '../components/popup-with-image.js';
 import {
   formChangeAvatar,
   avatar,
@@ -46,13 +46,6 @@ const api = new Api(
   }
 )
 
-
-
-// открытие попапа с картинкой карточки
-//const handleCardClick = (name, link) => {
-  //popupWithImage.open(name, link);
-//}
-//console.log(userName, userDescription);
 const userInfo = new UserInfo(userName, userDescription, avatar );
 
 api.getAllInfo()
@@ -64,14 +57,14 @@ api.getAllInfo()
     userId = user._id;
 
     cards.reverse().forEach((data) => {
-      renderCard(data, handleLike, handleDeleteCard, cardContainer, userId);
+      renderCard(data, handleCardClick, handleLike, handleDeleteCard, cardContainer, userId);
     });
   })
     .catch((err) => {
       console.log(`Ошибка получения информации с сервера: ${err}`)
     })
 
-    // попапы со слушателями !!!
+    // слушатели для закрытия по крестику 
     const popupEdit = new Popup ('.popup_type-edit');
     popupEdit.setEventListener();
 
@@ -81,8 +74,13 @@ api.getAllInfo()
     const popupAvatar = new Popup ('.popup_type-avatar');
     popupAvatar.setEventListener();
 
-    const popupImage = new PopupImage('.popup_type-image');
+    const popupImage = new PopupWithImage('.popup_type-image');
     popupImage.setEventListener();
+
+    // открытие попапа с картинкой карточки
+    const handleCardClick = (name, link) => {
+      popupImage.openImage(name, link);
+    }
 
     const profileEditValidation = new FormValidator(enableValidationConfig, formElementEdit);
     profileEditValidation.enableValidation();
@@ -160,13 +158,6 @@ profileEditButton.addEventListener('click', () => {
 //слушатель формы редактирования профиля
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
-
-
-//слушатель закрытия попап с картинкой
-popupImgClose.addEventListener('click', () => {
-  popupImage.closePopup();
-})
-
 //слушатель открытия попап с добавлением карточки
 profileAddButton.addEventListener('click', () => {
   profileAddCardValidation.toggleButtonState();
@@ -181,7 +172,7 @@ const addToContainer = function(evt) {
   dataLoading(popupButtonAdd, true);
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
-      renderCard(dataFromServer, handleDeleteCard, cardContainer, userId);
+      renderCard(dataFromServer, handleCardClick, handleDeleteCard, cardContainer, userId);
     popupAdd.closePopup();
     evt.target.reset();
   })
@@ -215,9 +206,10 @@ const handleDeleteCard = (cardId, card) => {
 }
 
 //объявленная переменная с функцией отображения карточек на сайте
-const renderCard = function(data, handleLike, handleDelete, container, userId) {
+const renderCard = function(data, handleCardClick, handleLike, handleDelete, container, userId) {
   const card = new Card(
     data,
+    handleCardClick,
     handleLike,
     handleDelete,
     '.card-template',
@@ -230,8 +222,3 @@ const renderCard = function(data, handleLike, handleDelete, container, userId) {
 
 // слушатель формы на добавление новых карточек
 formElementAdd.addEventListener('submit', addToContainer);
-
-  
-
-
-  
