@@ -57,9 +57,9 @@ const handleDeleteCard = (cardId, card) => {
 }
 
 // открытие попапа с картинкой карточки
-const handleCardClick = (name, link) => {
-  popupWithImage.open(name, link);
-}
+//const handleCardClick = (name, link) => {
+  //popupWithImage.open(name, link);
+//}
 
 
 api.getAllInfo()
@@ -209,10 +209,10 @@ const addToContainer = function(evt) {
 //объявленная переменная с функцией отображения карточек на сайте
 const renderCard = function(data, handleDelete, container, userId) {
   const card = new Card(
-    data, 
+    data,
+    updateLike,
     handleDelete,
     '.card-template',
-    handleCardClick,
     userId
   );
   const newCard = card.createCard();
