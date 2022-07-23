@@ -135,8 +135,8 @@ const handleProfileFormSubmit = (evt) => {
   dataLoading(popupButtonEdit, true);
   api.editProfile({name: nameInput.value, about: jobInput.value})
     .then(() => {
-      userName.textContent = nameInput.value;
-      userDescription.textContent = jobInput.value;
+      userInfo.setUserInfo(nameInput.value, jobInput.value);
+      userInfo.updateUserInfo();
     })
     .then(() => {
       popupEdit.closePopup();
@@ -158,8 +158,7 @@ profileEditButton.addEventListener('click', () => {
   jobInput.value = getUserInfo.about;
   profileEditValidation.toggleButtonState();
   profileEditValidation.hideValidity();
-    popupEdit.openPopup()
-    //userInfo.setUserInfo ();
+  popupEdit.openPopup()
 });
 
 //слушатель формы редактирования профиля
