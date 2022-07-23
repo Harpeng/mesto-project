@@ -153,10 +153,13 @@ const handleProfileFormSubmit = (evt) => {
 
 // слушатель на открытия попап с редактированием данных
 profileEditButton.addEventListener('click', () => {
+  const getUserInfo = userInfo.getUserInfo();
+  nameInput.value = getUserInfo.name;
+  jobInput.value = getUserInfo.about;
   profileEditValidation.toggleButtonState();
   profileEditValidation.hideValidity();
     popupEdit.openPopup()
-    userInfo.setUserInfo ();
+    //userInfo.setUserInfo ();
 });
 
 //слушатель формы редактирования профиля
