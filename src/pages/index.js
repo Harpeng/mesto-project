@@ -2,6 +2,7 @@ import './index.css';
 import FormValidator from '../components/FormValidator.js';
 import {Popup} from '../components/popup.js';
 import {PopupWithImage} from '../components/popup-with-image.js';
+import {PopupWithForm} from '../components/popup-with-form.js';
 import {
   formChangeAvatar,
   avatar,
@@ -35,9 +36,6 @@ import UserInfo from '../components/userInfo.js';
 import Section from '../components/section.js';
 
 let userId = null;
-
-
- // получение карточек и информации о пользователе с сервера
 
 const api = new Api(
   "https://mesto.nomoreparties.co/v1/plus-cohort-13",
@@ -98,9 +96,6 @@ popupEdit.setEventListener();
 const popupAdd = new Popup ('.popup_type-add');
 popupAdd.setEventListener();
 
-const popupAvatar = new Popup ('.popup_type-avatar');
-popupAvatar.setEventListener();
-
 const popupImage = new PopupWithImage('.popup_type-image');
 popupImage.setEventListener();
 
@@ -109,33 +104,14 @@ const handleCardClick = (name, link) => {
   popupImage.openImage(name, link);
 }
 
-const profileEditValidation = new FormValidator(enableValidationConfig, formElementEdit);
-profileEditValidation.enableValidation();
-const profileAddCardValidation = new FormValidator(enableValidationConfig, formElementAdd);
-profileAddCardValidation.enableValidation();
-const changeAvatarValidation = new FormValidator(enableValidationConfig, formChangeAvatar);
-changeAvatarValidation.enableValidation();
-  
-// слушатель на открытие попапа изменения аватара
-profileChangeAvatarButton.addEventListener('click', () => {
-  changeAvatarValidation.toggleButtonState();
-  changeAvatarValidation.hideValidity();
-  popupAvatar.openPopup();
-});
-
 // функция формы смены аватара
-const handleAvatarFormSubmit = (evt) => {
-  evt.preventDefault();
+const handlePopupChangeAvatar = (inputData) => {
   dataLoading(popupButtonChangeAvatar, true);
-  api.replaceUserAvatar({avatar: inputChangeAvatar.value })
+  api.replaceUserAvatar({avatar: inputData['link-avatar']}) // константу вынести
     .then(() => {
-      userInfo.setUserAvatar(inputChangeAvatar.value);
+      userInfo.setUserAvatar(inputChangeAvatar.value); // переписать под данные с сервера
       userInfo.updateUserAvatar();
-      // avatar.src = inputChangeAvatar.value;
-    })
-    .then(() => {
-      popupAvatar.closePopup();
-      evt.target.reset();
+      popupChangeAvatar.closePopup();
     })
     .catch((err) => {
       console.log(`Ошибка изменения аватара: ${err}`)
@@ -144,10 +120,15 @@ const handleAvatarFormSubmit = (evt) => {
       dataLoading(popupButtonChangeAvatar, false);
     });
 }
+profileChangeAvatarButton.addEventListener('click', () => {
+  changeAvatarValidation.toggleButtonState();
+  changeAvatarValidation.hideValidity();
+  popupChangeAvatar.openPopup();
+});
 
-// слушатель на отправку сабмита попапа изменения аватара
-formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
-
+// создание экземпляра PopupWhithForm для изменения аватара
+const popupChangeAvatar = new PopupWithForm('.popup_type-avatar', handlePopupChangeAvatar);
+popupChangeAvatar.setEventListener();
 
 // функция формы отправки данных попап редактирования профиля
 const handleProfileFormSubmit = (evt) => {                                                                              
@@ -190,8 +171,16 @@ profileAddButton.addEventListener('click', () => {
   profileAddCardValidation.hideValidity();
 });
 
-//объявленная переменная с функцией добавление новых карточек через форму
 
+// валидация форм в попапах
+const profileEditValidation = new FormValidator(enableValidationConfig, formElementEdit);
+profileEditValidation.enableValidation();
+const profileAddCardValidation = new FormValidator(enableValidationConfig, formElementAdd);
+profileAddCardValidation.enableValidation();
+const changeAvatarValidation = new FormValidator(enableValidationConfig, formChangeAvatar);
+changeAvatarValidation.enableValidation();
+
+//Функция добавление новых карточек через форму
 const addToContainer = function(evt) {
   evt.preventDefault();
   dataLoading(popupButtonAdd, true);
@@ -224,6 +213,7 @@ const addToContainer = function(evt) {
     });
 };
 
+// Функция постановки лайка
 const handleLike = (cardId, card, isLiked) => {
   api.changeLikeCondition(cardId, isLiked)
     .then((dataFromServer) => {
