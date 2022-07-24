@@ -47,40 +47,6 @@ const api = new Api(
   }
 )
 
-const userInfo = new UserInfo(userName, userDescription, avatar);
-// const section = new Section(cardContainer, 
-//   {
-
-//     renderer:  section.addItem(card.createCard();
-//   }
-//   (data) => {
-//   const card = new Card(
-//     data,
-//     handleCardClick,
-//     handleLike,
-//     handleDelete,
-//     '.card-template',
-//     userId
-//   );
-//   section.addItem(card.createCard());
-// }
-//);
-
-//объявленная переменная с функцией отображения карточек на сайте
-/**const renderCard = function(data, handleCardClick, handleLike, handleDelete, container, userId) {
-  const card = new Card(
-    data,
-    handleCardClick,
-    handleLike,
-    handleDelete,
-    '.card-template',
-    userId
-  );
-  
-  container.prepend(newCard);
-
-  }
-*/
 //функция удаления карточек
 const handleDeleteCard = (cardId, card) => {
   api.deleteCard(cardId)
@@ -92,6 +58,9 @@ const handleDeleteCard = (cardId, card) => {
     })
 }
 
+const userInfo = new UserInfo(userName, userDescription, avatar );
+
+
 api.getAllInfo()
   .then(([cards, user]) => {
     userInfo.setUserInfo(user.name, user.about);
@@ -100,30 +69,35 @@ api.getAllInfo()
     userInfo.updateUserAvatar();
     userId = user._id;
 
-    const cardList = new Section(cardContainer, 
-      {items: cards,
-      renderer: (item) => {
-        const card = new Card(
-          item,
-          handleCardClick,
-          handleLike,
-          handleDeleteCard,
-          '.card-template',
-          userId);
-        const newCard = card.createCard();
-        cardList.addItem(newCard);
-      }
-      }       
-    )
-    cardList.rendererItems();
-  })
+    const cardList = new Section(
+      {
+        items: cards,
+        renderer: (item) => {
+          const card = new Card(
+            item,
+            handleCardClick,
+            handleLike,
+            handleDeleteCard,
+            '.card-template',
+            userId
+          );
+          const newCard = card.createCard();
+          cardList.addItem(newCard);
+        },
+      },
+      cardContainer
+    );
+    cardList.renderItems();
+
+
+
   /*  cards.reverse().forEach((data) => {
       renderCard(data, handleCardClick, handleLike, handleDeleteCard, cardContainer, userId);
     }); */
-  
-  .catch((err) => {
-    console.log(`Ошибка получения информации с сервера: ${err}`)
   })
+      .catch((err) => {
+      console.log(`Ошибка получения информации с сервера: ${err}`)
+    })
 
     // слушатели для закрытия по крестику 
     const popupEdit = new Popup ('.popup_type-edit');
@@ -233,7 +207,7 @@ const addToContainer = function(evt) {
   dataLoading(popupButtonAdd, true);
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
-      cardList.rendererItems(dataFromServer);
+      renderCard(dataFromServer, handleCardClick, handleDeleteCard, cardContainer, userId);
     popupAdd.closePopup();
     evt.target.reset();
   })
@@ -255,5 +229,21 @@ const handleLike = (cardId, card, isLiked) => {
     })
 }
 
+
+//объявленная переменная с функцией отображения карточек на сайте
+/**const renderCard = function(data, handleCardClick, handleLike, handleDelete, container, userId) {
+  const card = new Card(
+    data,
+    handleCardClick,
+    handleLike,
+    handleDelete,
+    '.card-template',
+    userId
+  );
+  const newCard = card.createCard();
+  container.prepend(newCard);
+
+  }
+*/
 // слушатель формы на добавление новых карточек
 formElementAdd.addEventListener('submit', addToContainer);
