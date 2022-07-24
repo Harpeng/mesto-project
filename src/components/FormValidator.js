@@ -54,7 +54,7 @@ export default class FormValidator {
         inputElement.addEventListener('input', () => {
           const isFormValid = this._formElement.checkValidity();
           this._checkInputValidity(inputElement, this._formElement, this._enableValidationConfig.inputErrorClass);
-          this.toggleButtonState(this._button, isFormValid, this._enableValidationConfig.inactiveButtonClass);
+          this.toggleButtonState(isFormValid, this._enableValidationConfig.inactiveButtonClass);
         })
       })
     }; 
