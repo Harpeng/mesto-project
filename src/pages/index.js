@@ -32,6 +32,7 @@ import {
 import {Card} from '../components/card.js';
 import Api from '../components/api.js';
 import UserInfo from '../components/userInfo.js';
+import Section from '../components/section.js';
 
 let userId = null;
 
