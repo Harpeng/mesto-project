@@ -48,39 +48,7 @@ const api = new Api(
 )
 
 const userInfo = new UserInfo(userName, userDescription, avatar);
-// const section = new Section(cardContainer, 
-//   {
 
-//     renderer:  section.addItem(card.createCard();
-//   }
-//   (data) => {
-//   const card = new Card(
-//     data,
-//     handleCardClick,
-//     handleLike,
-//     handleDelete,
-//     '.card-template',
-//     userId
-//   );
-//   section.addItem(card.createCard());
-// }
-//);
-
-//объявленная переменная с функцией отображения карточек на сайте
-/**const renderCard = function(data, handleCardClick, handleLike, handleDelete, container, userId) {
-  const card = new Card(
-    data,
-    handleCardClick,
-    handleLike,
-    handleDelete,
-    '.card-template',
-    userId
-  );
-  
-  container.prepend(newCard);
-
-  }
-*/
 //функция удаления карточек
 const handleDeleteCard = (cardId, card) => {
   api.deleteCard(cardId)
@@ -101,7 +69,8 @@ api.getAllInfo()
     userId = user._id;
 
     const cardList = new Section(cardContainer, 
-      {items: cards,
+      {
+      items: cards,
       renderer: (item) => {
         const card = new Card(
           item,
@@ -115,73 +84,69 @@ api.getAllInfo()
       }
       }       
     )
-    cardList.rendererItems();
+    cardList.renderItems();
   })
-  /*  cards.reverse().forEach((data) => {
-      renderCard(data, handleCardClick, handleLike, handleDeleteCard, cardContainer, userId);
-    }); */
-  
+ 
   .catch((err) => {
     console.log(`Ошибка получения информации с сервера: ${err}`)
   })
 
-    // слушатели для закрытия по крестику 
-    const popupEdit = new Popup ('.popup_type-edit');
-    popupEdit.setEventListener();
+// слушатели для закрытия по крестику 
+const popupEdit = new Popup ('.popup_type-edit');
+popupEdit.setEventListener();
 
-    const popupAdd = new Popup ('.popup_type-add');
-    popupAdd.setEventListener();
+const popupAdd = new Popup ('.popup_type-add');
+popupAdd.setEventListener();
 
-    const popupAvatar = new Popup ('.popup_type-avatar');
-    popupAvatar.setEventListener();
+const popupAvatar = new Popup ('.popup_type-avatar');
+popupAvatar.setEventListener();
 
-    const popupImage = new PopupWithImage('.popup_type-image');
-    popupImage.setEventListener();
+const popupImage = new PopupWithImage('.popup_type-image');
+popupImage.setEventListener();
 
-    // открытие попапа с картинкой карточки
-    const handleCardClick = (name, link) => {
-      popupImage.openImage(name, link);
-    }
+// открытие попапа с картинкой карточки
+const handleCardClick = (name, link) => {
+  popupImage.openImage(name, link);
+}
 
-    const profileEditValidation = new FormValidator(enableValidationConfig, formElementEdit);
-    profileEditValidation.enableValidation();
-    const profileAddCardValidation = new FormValidator(enableValidationConfig, formElementAdd);
-    profileAddCardValidation.enableValidation();
-    const changeAvatarValidation = new FormValidator(enableValidationConfig, formChangeAvatar);
-    changeAvatarValidation.enableValidation();
+const profileEditValidation = new FormValidator(enableValidationConfig, formElementEdit);
+profileEditValidation.enableValidation();
+const profileAddCardValidation = new FormValidator(enableValidationConfig, formElementAdd);
+profileAddCardValidation.enableValidation();
+const changeAvatarValidation = new FormValidator(enableValidationConfig, formChangeAvatar);
+changeAvatarValidation.enableValidation();
   
-    // слушатель на открытие попапа изменения аватара
-    profileChangeAvatarButton.addEventListener('click', () => {
-      changeAvatarValidation.toggleButtonState();
-      changeAvatarValidation.hideValidity();
-      popupAvatar.openPopup();
+// слушатель на открытие попапа изменения аватара
+profileChangeAvatarButton.addEventListener('click', () => {
+  changeAvatarValidation.toggleButtonState();
+  changeAvatarValidation.hideValidity();
+  popupAvatar.openPopup();
+});
+
+// функция формы смены аватара
+const handleAvatarFormSubmit = (evt) => {
+  evt.preventDefault();
+  dataLoading(popupButtonChangeAvatar, true);
+  api.replaceUserAvatar({avatar: inputChangeAvatar.value })
+    .then(() => {
+      userInfo.setUserAvatar(inputChangeAvatar.value);
+      userInfo.updateUserAvatar();
+      // avatar.src = inputChangeAvatar.value;
+    })
+    .then(() => {
+      popupAvatar.closePopup();
+      evt.target.reset();
+    })
+    .catch((err) => {
+      console.log(`Ошибка изменения аватара: ${err}`)
+    })
+    .finally(() => {
+      dataLoading(popupButtonChangeAvatar, false);
     });
+}
 
-    // функция формы смены аватара
-    const handleAvatarFormSubmit = (evt) => {
-      evt.preventDefault();
-      dataLoading(popupButtonChangeAvatar, true);
-      api.replaceUserAvatar({avatar: inputChangeAvatar.value })
-        .then(() => {
-          userInfo.setUserAvatar(inputChangeAvatar.value);
-          userInfo.updateUserAvatar();
-
-         // avatar.src = inputChangeAvatar.value;
-        })
-        .then(() => {
-          popupAvatar.closePopup();
-          evt.target.reset();
-        })
-        .catch((err) => {
-          console.log(`Ошибка изменения аватара: ${err}`)
-        })
-        .finally(() => {
-          dataLoading(popupButtonChangeAvatar, false);
-        });
-    }
-
-    // слушатель на отправку сабмита попапа изменения аватара
-    formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
+// слушатель на отправку сабмита попапа изменения аватара
+formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
 
 // функция формы отправки данных попап редактирования профиля
@@ -204,7 +169,6 @@ const handleProfileFormSubmit = (evt) => {
       dataLoading(popupButtonEdit, false);
     });
   }
-
 
 // слушатель на открытия попап с редактированием данных
 profileEditButton.addEventListener('click', () => {
@@ -233,10 +197,25 @@ const addToContainer = function(evt) {
   dataLoading(popupButtonAdd, true);
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
-      cardList.rendererItems(dataFromServer);
-    popupAdd.closePopup();
-    evt.target.reset();
-  })
+      const cardSingle = new Section(cardContainer, 
+        {items: dataFromServer,
+        renderer: (item) => {
+          const card = new Card(
+            item,
+            handleCardClick,
+            handleLike,
+            handleDeleteCard,
+            '.card-template',
+            userId);
+          const newCard = card.createCard();
+          cardSingle.addItem(newCard);
+        }
+        }       
+      )
+      cardSingle.renderItem();
+      popupAdd.closePopup();
+      evt.target.reset();
+    })
     .catch((err) => {
       console.log(`Ошибка добавления карточки: ${err}`);
     })
