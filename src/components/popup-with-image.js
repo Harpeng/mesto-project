@@ -8,9 +8,9 @@ export class PopupWithImage extends Popup {
     }
 
     openImage = (name, link) => {
-        super.openPopup();
         this._popupPic.src = link;
         this._popupPicText.textContent = name;
         this._popupPic.alt = name;
+        super.openPopup();
     }
 }
