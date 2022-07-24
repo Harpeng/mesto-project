@@ -33,6 +33,7 @@ import {Card} from '../components/card.js';
 import Api from '../components/api.js';
 import UserInfo from '../components/userInfo.js';
 import Section from '../components/section.js';
+import PopupWithForm from '../components/popup-with-form';
 
 let userId = null;
 
@@ -69,36 +70,30 @@ api.getAllInfo()
     userInfo.updateUserAvatar();
     userId = user._id;
 
-    const cardList = new Section(
-      {
-        items: cards,
-        renderer: (item) => {
-          const card = new Card(
-            item,
-            handleCardClick,
-            handleLike,
-            handleDeleteCard,
-            '.card-template',
-            userId
-          );
-          const newCard = card.createCard();
-          cardList.addItem(newCard);
-        },
-      },
-      cardContainer
-    );
-    cardList.renderItems();
-
-
-
+    const cardList = new Section(cardContainer, 
+      {items: cards,
+      renderer: (item) => {
+        const card = new Card(
+          item,
+          handleCardClick,
+          handleLike,
+          handleDeleteCard,
+          '.card-template',
+          userId);
+        const newCard = card.createCard();
+        cardList.addItem(newCard);
+      }
+      }       
+    )
+    cardList.rendererItems();
+  })
   /*  cards.reverse().forEach((data) => {
       renderCard(data, handleCardClick, handleLike, handleDeleteCard, cardContainer, userId);
     }); */
+  
+  .catch((err) => {
+    console.log(`Ошибка получения информации с сервера: ${err}`)
   })
-      .catch((err) => {
-      console.log(`Ошибка получения информации с сервера: ${err}`)
-    })
-
     // слушатели для закрытия по крестику 
     const popupEdit = new Popup ('.popup_type-edit');
     popupEdit.setEventListener();
@@ -157,6 +152,15 @@ api.getAllInfo()
     // слушатель на отправку сабмита попапа изменения аватара
     formChangeAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
+    // слушатель на открытия попап с редактированием данных
+profileEditButton.addEventListener('click', () => {
+  const getUserInfo = userInfo.getUserInfo();
+  nameInput.value = getUserInfo.name;
+  jobInput.value = getUserInfo.about;
+  profileEditValidation.toggleButtonState();
+  profileEditValidation.hideValidity();
+  popupEdit.openPopup()
+});
 
 // функция формы отправки данных попап редактирования профиля
 const handleProfileFormSubmit = (evt) => {                                                                              
@@ -180,15 +184,7 @@ const handleProfileFormSubmit = (evt) => {
   }
 
 
-// слушатель на открытия попап с редактированием данных
-profileEditButton.addEventListener('click', () => {
-  const getUserInfo = userInfo.getUserInfo();
-  nameInput.value = getUserInfo.name;
-  jobInput.value = getUserInfo.about;
-  profileEditValidation.toggleButtonState();
-  profileEditValidation.hideValidity();
-  popupEdit.openPopup()
-});
+
 
 //слушатель формы редактирования профиля
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
@@ -207,7 +203,23 @@ const addToContainer = function(evt) {
   dataLoading(popupButtonAdd, true);
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
-      renderCard(dataFromServer, handleCardClick, handleDeleteCard, cardContainer, userId);
+      const cardList = new Section(cardContainer, 
+        {items: dataFromServer,
+        renderer: (item) => {
+          const card = new Card(
+            item,
+            handleCardClick,
+            handleLike,
+            handleDeleteCard,
+            '.card-template',
+            userId)
+          const newCard = card.createCard();
+          cardList.addItem(newCard);
+        }
+        }       
+      )
+      cardList.renderItem(dataFromServer);
+    
     popupAdd.closePopup();
     evt.target.reset();
   })
