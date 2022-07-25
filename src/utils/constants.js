@@ -1,21 +1,10 @@
 /** попапы */
-const popupProfile = document.querySelector('.popup_type-edit');
-const popupImage = document.querySelector('.popup_type-image');
-const cardPopup = document.querySelector('.popup_type-add');
-const popupImgClose = popupImage.querySelector('.popup__close_js-img');
-const popupAddClose = document.querySelector('.popup__close_js-add');
-const popupCloseEdit = document.querySelector('.popup__close_js-edit');
-const popupButtonEdit = document.querySelector('.popup__button_js-edit');
-const popupButtonAdd = document.querySelector('.popup_js-add-button');
 const formElementAdd = document.querySelector('.popup__form_js-add');
 const formElementEdit = document.querySelector('.popup__form_js-edit');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileChangeAvatarButton = document.querySelector('.profile__change-avatar-button');
 const formChangeAvatar = document.querySelector('.popup__form_js-avatar');
-const popupCloseChangeAvatar = document.querySelector('.popup__close_js-avatar');
-const avatarChangePopup = document.querySelector('.popup_type-avatar');
-const popupButtonChangeAvatar = document.querySelector('.popup_js-avatar-button');
 const avatar = document.querySelector('.profile__avatar');
 /** инпуты */
 const inputPlace = document.querySelector('.popup_js-add-place');
@@ -38,11 +27,8 @@ const enableValidationConfig = {
 
 
 /** карточки */
-const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__card');
 const cardContainer = document.querySelector('.elements__container');
-//const popupPic = document.querySelector('.popup__image');
-//const popupText = document.querySelector('.popup__text');
-const initialCards = [
+/**const initialCards = [
     {
       name: 'Архыз',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -67,16 +53,9 @@ const initialCards = [
       name: 'Байкал',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-  ];
+  ]; */
 
 
-/** функция изменения текста кнопки при загрузки информации на страницу */
-  const dataLoading = (button, loading) => {
-    if (loading) {
-      button.textContent = "Сохранение...";
-    } else {
-      button.textContent = "Сохранить";
-    }
-  }
+
   
-  export{popupImgClose, avatar, popupButtonChangeAvatar, inputChangeAvatar, avatarChangePopup, popupCloseChangeAvatar, formChangeAvatar, profileChangeAvatarButton, dataLoading, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, popupButtonAdd, popupButtonEdit, popupCloseEdit, popupAddClose,  cardTemplate, initialCards,inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription, popupProfile, cardPopup};
+  export{ avatar,  inputChangeAvatar,  formChangeAvatar, profileChangeAvatarButton, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription};

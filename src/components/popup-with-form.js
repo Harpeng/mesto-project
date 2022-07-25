@@ -1,38 +1,43 @@
 import { Popup } from "./popup.js";
 
-export default class PopupWithForm extends Popup {
-    constructor(popupSelector, formSelector, submitHandler = null) {
-        super(popupSelector);
-        this._form = document.querySelector(formSelector);
-        this._submitHandler = submitHandler;
-        this._inputLists = this._form.querySelectorAll('.popup__input');
+export class PopupWithForm extends Popup {
+  constructor(popupSelector, handleSubmit) {
+    super(popupSelector);
+    this._formElement = this._popup.querySelector('.popup__form');
+    this._inputList = this._formElement.querySelectorAll('.popup__input');
+    this._handleSubmit = handleSubmit;
+    this._buttonSubmit = this._formElement.querySelector('.popup__button');
+    this._buttonText =this._buttonSubmit.textContent;
+  }
+
+  closePopup() {
+    super.closePopup();
+    this._formElement.reset();
+  }
+
+  _getInputValues = () => {
+    this._formInputsValues = {};
+
+    this._inputList.forEach((input) => {
+      this._formInputsValues[input.name] = input.value; // на выходе - объект {имя_поля1: значение1, ..}
+    });
+
+    return this._formInputsValues;
+  }
+
+  dataLoading(isLoading, loadingText = "Сохранение...") {
+    if (isLoading) {
+      this._buttonSubmit.textContent = loadingText;
+    } else {
+      this._buttonSubmit.textContent = this._buttonText;
     }
+  }
 
-    setSubmitAction = (action) => {
-        this._submitHandler = action;
-    }   
-
-    _getInputValues = () => {
-        this._inputValues = {};
-    
-        this._inputLists.forEach((input) => {
-          this._inputValues[input.name] = input.value;
-        });
-    
-        return this._inputValues;
-      }
-
-    setEventListener = () => {
-        super.setEventListener();
-        this._submit.addEventListener('submit', (e)=> {
-            e.preventDefault();
-            this._submitHandler(this._getInputValues);
-        })
-    }
-
-    closePopup = (e) => {
-        super.closePopup();
-        e.target.reset();
-    }
-
+  setEventListener = () => {
+    super.setEventListener();
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleSubmit(this._getInputValues());
+    });
+  }
 }
