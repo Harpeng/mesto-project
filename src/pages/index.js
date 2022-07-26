@@ -1,11 +1,15 @@
 import './index.css';
-import FormValidator from '../components/FormValidator.js';
-import {Popup} from '../components/popup.js';
-import {PopupWithImage} from '../components/popup-with-image.js';
-import {PopupWithForm} from '../components/popup-with-form.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {Popup} from '../components/Popup.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
+import {Card} from '../components/Card.js';
+import {Api} from '../components/Api.js';
+import {UserInfo} from '../components/UserInfo.js';
+import {Section} from '../components/Section.js';
 import {
   formChangeAvatar,
-  avatar,
+  avatarSelector,
   inputChangeAvatar,
   profileChangeAvatarButton,
   profileAddButton,
@@ -17,14 +21,10 @@ import {
   cardContainer,
   nameInput,
   jobInput,
-  userName,
-  userDescription,
+  userNameSelector,
+  userDescSelector,
   enableValidationConfig,
 } from '../utils/constants.js';
-import {Card} from '../components/card.js';
-import Api from '../components/api.js';
-import UserInfo from '../components/userInfo.js';
-import Section from '../components/section.js';
 
 let userId = null;
 
@@ -37,7 +37,7 @@ const api = new Api(
 )
 
 //функция удаления карточек
-const handleDeleteCard = (cardId, card) => {
+const handleDeleteClick = (cardId, card) => {
   api.deleteCard(cardId)
     .then(() => {
       card.deleteCard();
@@ -48,7 +48,7 @@ const handleDeleteCard = (cardId, card) => {
 }
 
 // Функция постановки лайка
-const handleLike = (cardId, card, isLiked) => {
+const handleLikeClick = (cardId, card, isLiked) => {
   api.changeLikeCondition(cardId, isLiked)
     .then((dataFromServer) => {
     card.updateLike(dataFromServer.likes)
@@ -58,7 +58,7 @@ const handleLike = (cardId, card, isLiked) => {
     })
 }
 
-const userInfo = new UserInfo(userName, userDescription, avatar);
+const userInfo = new UserInfo(userNameSelector, userDescSelector, avatarSelector);
 
 api.getAllInfo()
   .then(([cards, user]) => {
@@ -68,27 +68,29 @@ api.getAllInfo()
     userInfo.updateUserAvatar();
     userId = user._id;
 
-    const cardList = new Section(cardContainer, 
+    const cardList = new Section(
       {
       items: cards,
       renderer: (item) => {
-        const card = new Card(
-          item,
+        const card = new Card({
+          data: item,
           handleCardClick,
-          handleLike,
-          handleDeleteCard,
-          '.card-template',
-          userId);
+          handleLikeClick,
+          handleDeleteClick,
+          userId
+          },
+          '.card-template'
+          );
         const newCard = card.createCard();
         cardList.addItem(newCard);
       }
-      }       
+      }, cardContainer       
     )
     cardList.renderItems();
   })
  
   .catch((err) => {
-    console.log(`Ошибка получения информации с сервера: ${err}`)
+    console.log(`Ошибка получения информации о пользователе: ${err}`)
   })
 
 // слушатели для закрытия по крестику 
@@ -177,20 +179,21 @@ const addToContainer = () => {
   popupAddCards.dataLoading(true);
   api.addCards({name: inputPlace.value, link: inputSource.value})
     .then((dataFromServer) => {
-      const cardSingle = new Section(cardContainer, 
+      const cardSingle = new Section(
         {items: dataFromServer,
         renderer: (item) => {
-          const card = new Card(
-            item,
+          const card = new Card({
+            data:item,
             handleCardClick,
-            handleLike,
-            handleDeleteCard,
-            '.card-template',
-            userId);
+            handleLikeClick,
+            handleDeleteClick,
+            userId
+            },
+            '.card-template');
           const newCard = card.createCard();
           cardSingle.addItem(newCard);
         }
-        }       
+        }, cardContainer       
       )
       cardSingle.renderItem();
       popupAddCards.closePopup();

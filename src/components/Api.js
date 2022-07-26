@@ -1,4 +1,4 @@
-export default class Api {
+export class Api {
   constructor(url, headers) {
     this._url = url;
     this._cardsUrl = `${this._url}/cards`;

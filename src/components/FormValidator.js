@@ -1,5 +1,6 @@
-//реализация валидации полей
-export default class FormValidator {
+/* Валидация полей форм */
+
+export class FormValidator {
   constructor(enableValidationConfig, formElement) {
     this._enableValidationConfig = enableValidationConfig;
     this._formElement = formElement;

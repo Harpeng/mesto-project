@@ -11,7 +11,7 @@ export class Popup {
   
   // функция закрытие попап через esc (функция)
   
-  _keyHandler = (evt) => {
+  _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.closePopup()
     };
@@ -23,7 +23,7 @@ export class Popup {
     this._popup.classList.add('popup_is-opened');
   
     this._popup.addEventListener('mousedown', this._clickOnOverlay);
-    document.addEventListener('keydown', this._keyHandler)
+    document.addEventListener('keydown', this._handleEscClose)
   };
   
   // функция закрытия попап
@@ -32,7 +32,7 @@ export class Popup {
     this._popup.classList.remove('popup_is-opened');
     
     this._popup.removeEventListener('mousedown', this._clickOnOverlay);
-    document.removeEventListener('keydown', this._keyHandler);
+    document.removeEventListener('keydown', this._handleEscClose);
   };
 
   setEventListener() {
@@ -43,12 +43,3 @@ export class Popup {
     })
   }
 }
-// функция добавляющаю в форму данные из профиля
-
-function defaultValueInput (popup) {
-  nameInput.value = userName.textContent;
-  jobInput.value = userDescription.textContent
-};
-
-
-export {defaultValueInput};

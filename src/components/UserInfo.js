@@ -1,8 +1,8 @@
-export default class UserInfo {
-	constructor(nameElement, aboutElement, avatarElement) {
-		this._nameElem = nameElement;
-		this._aboutElem = aboutElement;
-		this._avatarElem = avatarElement;
+export class UserInfo {
+	constructor(nameElementSelector, aboutElementSelector, avatarElementSelector) {
+		this._nameElem = document.querySelector(nameElementSelector);
+		this._aboutElem = document.querySelector(aboutElementSelector);
+		this._avatarElem = document.querySelector(avatarElementSelector);
 	}
 
 	getUserAvatar = () => {

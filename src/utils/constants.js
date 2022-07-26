@@ -5,15 +5,16 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileChangeAvatarButton = document.querySelector('.profile__change-avatar-button');
 const formChangeAvatar = document.querySelector('.popup__form_js-avatar');
-const avatar = document.querySelector('.profile__avatar');
 /** инпуты */
 const inputPlace = document.querySelector('.popup_js-add-place');
 const inputSource = document.querySelector('.popup_js-add-source');
 const nameInput = document.querySelector('.popup__user-name');
 const jobInput = document.querySelector('.popup__user-description');
-const userName = document.querySelector('.profile__title');
-const userDescription = document.querySelector('.profile__subtitle');
 const inputChangeAvatar = document.querySelector('.popup_js-change-avatar');
+/** селекторы */
+const userNameSelector = '.profile__title';
+const userDescSelector = '.profile__subtitle';
+const avatarSelector = '.profile__avatar';
 /** валидация */
 const enableValidationConfig = {
   formSelector: '.popup__form',
@@ -58,4 +59,4 @@ const cardContainer = document.querySelector('.elements__container');
 
 
   
-  export{ avatar,  inputChangeAvatar,  formChangeAvatar, profileChangeAvatarButton, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, inputPlace, inputSource, cardContainer, nameInput, jobInput, userName, userDescription};
+  export{ avatarSelector,  inputChangeAvatar,  formChangeAvatar, profileChangeAvatarButton, enableValidationConfig, profileAddButton, profileEditButton, formElementEdit, formElementAdd, inputPlace, inputSource, cardContainer, nameInput, jobInput, userNameSelector, userDescSelector};
