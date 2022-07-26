@@ -1,6 +1,6 @@
-export {Card};
+/** Создание и взаимодейтсвие с карточками */
 
-class Card {
+export class Card {
   constructor({data, handleCardClick, handleLikeClick, handleDeleteClick, userId}, templateSelector){
     this._cardName = data.name;
     this._cardLink = data.link;
@@ -49,12 +49,13 @@ class Card {
     this._element = this._getElement();
 
     this._img = this._element.querySelector('.elements__image');
-    this._img.src = this._cardLink;
-    this._element.querySelector('.elements__text').textContent = this._cardName;
-    this._element.querySelector('.elements__image').alt = this._cardName;
     this._deleteBtn = this._element.querySelector('.elements__trash');
     this._likeBtn = this._element.querySelector('.elements__like-button');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
+
+    this._img.src = this._cardLink;
+    this._img.alt = this._cardName;
+    this._element.querySelector('.elements__text').textContent = this._cardName;
 
     this.updateLike(this._likes);
 
@@ -68,4 +69,3 @@ class Card {
   
   }
 }
-

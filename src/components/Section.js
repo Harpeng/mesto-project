@@ -1,3 +1,5 @@
+/** Отрисовка элементов на странице */
+
 export class Section {
 	constructor({items, renderer}, containerSelector){
 		this._containerSelector = containerSelector;

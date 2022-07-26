@@ -9,15 +9,11 @@ export class Popup {
     }
   }
   
-  // функция закрытие попап через esc (функция)
-  
   _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.closePopup()
     };
   } 
-  
-  // функция открытия попап
   
   openPopup(){
     this._popup.classList.add('popup_is-opened');
@@ -25,8 +21,6 @@ export class Popup {
     this._popup.addEventListener('mousedown', this._clickOnOverlay);
     document.addEventListener('keydown', this._handleEscClose)
   };
-  
-  // функция закрытия попап
   
   closePopup() {
     this._popup.classList.remove('popup_is-opened');

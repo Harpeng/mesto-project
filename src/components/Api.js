@@ -7,7 +7,6 @@ export class Api {
     this._headers = headers;
   }
 
-
   _getResponce(res) {
     return res.ok ? res.json() : Promise.reject('Сервер недоступен');
   }
@@ -37,9 +36,9 @@ export class Api {
        method: "POST",
        headers: this._headers,
        body: JSON.stringify(data)
-     })
-     .then(this._getResponce)
-   }
+    })
+    .then(this._getResponce)
+  }
 
   editProfile(data) {
     return fetch(this._usersUrl, {
@@ -52,27 +51,26 @@ export class Api {
 
   replaceUserAvatar(avatarLink) {
     return fetch(this._userAvatarUrl, {
-        method: "PATCH",
-        headers: this._headers,
-        body: JSON.stringify(avatarLink)
-      })
-      .then(this._getResponce)
-    }
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify(avatarLink)
+    })
+    .then(this._getResponce)
+  }
 
   deleteCard(cardId) {
     return fetch(`${this._cardsUrl}/${cardId}`, {
-        method: "DELETE",
-        headers: this._headers
-      })
-      .then(this._getResponce)
-    }
+      method: "DELETE",
+      headers: this._headers
+    })
+    .then(this._getResponce)
+  }
   
   changeLikeCondition(cardId, isLike) {
     return fetch(`${this._cardsUrl}/likes/${cardId}`, {
-        method: isLike ? "DELETE" : "PUT",
-        headers: this._headers
-      })
-      .then(this._getResponce)
-    }
-  
+      method: isLike ? "DELETE" : "PUT",
+      headers: this._headers
+    })
+    .then(this._getResponce)
+  }
 }

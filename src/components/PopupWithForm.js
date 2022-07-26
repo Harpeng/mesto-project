@@ -19,7 +19,7 @@ export class PopupWithForm extends Popup {
     this._formInputsValues = {};
 
     this._inputList.forEach((input) => {
-      this._formInputsValues[input.name] = input.value; // на выходе - объект {имя_поля1: значение1, ..}
+      this._formInputsValues[input.name] = input.value;
     });
 
     return this._formInputsValues;

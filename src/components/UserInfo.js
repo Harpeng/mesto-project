@@ -7,14 +7,14 @@ export class UserInfo {
 
 	getUserAvatar = () => {
 		return {
-				avatar: this._avatar
+			avatar: this._avatar
 		}
 	}
 
 	getUserInfo = () => {
 		return {
-				name: this._userName,
-				about: this._about
+			name: this._userName,
+			about: this._about
 		}
 	}
 
