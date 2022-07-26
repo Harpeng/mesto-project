@@ -57,9 +57,9 @@ const handleCardClick = (name, link) => {
 // изменение аватара
 const handlePopupChangeAvatar = (inputData) => {
   popupChangeAvatar.dataLoading(true);
-  api.replaceUserAvatar({avatar: inputData['link-avatar']}) // константу вынести
-    .then(() => {
-      userInfo.setUserAvatar(avatarInput.value); // переписать под данные с сервера
+  api.replaceUserAvatar({avatar: inputData['link-avatar']})
+    .then((user) => {
+      userInfo.setUserAvatar(user.avatar);
       userInfo.updateUserAvatar();
       popupChangeAvatar.closePopup();
     })
@@ -75,8 +75,8 @@ const handlePopupChangeAvatar = (inputData) => {
 const handleProfileFormSubmit = () => {
   popupEditProfile.dataLoading(true);
   api.editProfile({name: nameInput.value, about: descInput.value})
-    .then(() => {
-      userInfo.setUserInfo(nameInput.value, descInput.value);
+    .then((user) => {
+      userInfo.setUserInfo(user.name, user.about);
       userInfo.updateUserInfo();
     })
     .then(() => {
