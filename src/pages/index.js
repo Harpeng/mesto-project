@@ -1,6 +1,5 @@
 import './index.css';
 import {FormValidator} from '../components/FormValidator.js';
-import {Popup} from '../components/Popup.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import {Card} from '../components/Card.js';
@@ -52,7 +51,7 @@ const handleLikeClick = (cardId, card, isLiked) => {
 }
 
 const handleCardClick = (name, link) => {
-  popupImage.openImage(name, link);
+  popupWithImage.openImage(name, link);
 }
 
 // изменение аватара
@@ -133,6 +132,7 @@ const api = new Api(
 );
 const userInfo = new UserInfo(userNameSelector, userDescSelector, avatarSelector);
 
+const popupWithImage = new PopupWithImage('.popup_type-image');
 const popupChangeAvatar = new PopupWithForm('.popup_type-avatar', handlePopupChangeAvatar);
 const popupEditProfile = new PopupWithForm('.popup_type-edit', handleProfileFormSubmit);
 const popupAddCards = new PopupWithForm('.popup_type-add', addToContainer);
@@ -161,6 +161,7 @@ profileAddButton.addEventListener('click', () => {
 });
 
 // слушатели на попапы
+popupWithImage.setEventListener();
 popupChangeAvatar.setEventListener();
 popupEditProfile.setEventListener();
 popupAddCards.setEventListener();
