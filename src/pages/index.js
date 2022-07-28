@@ -88,7 +88,21 @@ const handleProfileFormSubmit = () => {
     .finally(() => {
       popupEditProfile.dataLoading(false);
     });
-  }
+}
+
+// создание карточек
+function createCard(item) {
+  const card = new Card({
+       data: item,
+       handleCardClick,
+       handleLikeClick,
+       handleDeleteClick,
+       userId
+      },
+       cardTemplateSelector);
+     const newCard = card.createCard();
+  return newCard;
+}
 
 // добавление новых карточек через форму
 const addToContainer = () => {
@@ -98,16 +112,8 @@ const addToContainer = () => {
       const cardSingle = new Section(
         {items: dataFromServer,
         renderer: (item) => {
-          const card = new Card({
-            data:item,
-            handleCardClick,
-            handleLikeClick,
-            handleDeleteClick,
-            userId
-            },
-            cardTemplateSelector);
-          const newCard = card.createCard();
-          cardSingle.addItem(newCard);
+          const card = createCard(item);
+          cardSingle.addItem(card);
         }
         }, cardContainer
       )
@@ -121,6 +127,7 @@ const addToContainer = () => {
       popupAddCards.dataLoading(false);
     });
 };
+
 
 // СОЗДАНИЕ ЭКЗЕМПЛЯРОВ КЛАССОВ
 const api = new Api(
@@ -187,17 +194,8 @@ api.getAllInfo()
       {
       items: cards,
       renderer: (item) => {
-        const card = new Card({
-          data: item,
-          handleCardClick,
-          handleLikeClick,
-          handleDeleteClick,
-          userId
-          },
-          cardTemplateSelector
-          );
-        const newCard = card.createCard();
-        cardList.addItem(newCard);
+        const card = createCard(item);
+        cardList.addItem(card);
       }
       }, cardContainer
     )
