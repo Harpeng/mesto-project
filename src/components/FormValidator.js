@@ -18,13 +18,13 @@ export class FormValidator {
     
     
   _checkInputValidity = (inputElement) => {
-    const isInputValid = inputElement.validity.valid;
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    this._isInputValid = inputElement.validity.valid;
+    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
   
-    if(!isInputValid) {
-      this._showInputError(errorElement, inputElement);
+    if(!this._isInputValid) {
+      this._showInputError(this._errorElement, inputElement);
     } else {
-      this._hideInputError(errorElement, inputElement);
+      this._hideInputError(this._errorElement, inputElement);
     }
   }
     
@@ -50,12 +50,12 @@ export class FormValidator {
   }
     
   _setEventListeners = () => {
-    const inputList = this._formElement.querySelectorAll(this._enableValidationConfig.inputSelector); 
-    Array.from(inputList).forEach(inputElement => {
+    this._inputList = this._formElement.querySelectorAll(this._enableValidationConfig.inputSelector); 
+    Array.from(this._inputList).forEach(inputElement => {
       inputElement.addEventListener('input', () => {
-        const isFormValid = this._formElement.checkValidity();
+        this._isFormValid = this._formElement.checkValidity();
         this._checkInputValidity(inputElement, this._formElement, this._enableValidationConfig.inputErrorClass);
-        this.toggleButtonState(isFormValid, this._enableValidationConfig.inactiveButtonClass);
+        this.toggleButtonState(this._isFormValid, this._enableValidationConfig.inactiveButtonClass);
       })
     })
   }; 

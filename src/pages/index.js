@@ -9,14 +9,11 @@ import {Section} from '../components/Section.js';
 import {
   formChangeAvatar,
   avatarSelector,
-  avatarInput,
   profileChangeAvatarButton,
   profileAddButton,
   profileEditButton,
   formElementEdit,
   formElementAdd,
-  inputPlace,
-  inputSource,
   cardContainer,
   nameInput,
   descInput,
@@ -72,9 +69,9 @@ const handlePopupChangeAvatar = (inputData) => {
 }
 
 // изменение описания профиля
-const handleProfileFormSubmit = () => {
+const handleProfileFormSubmit = (inputData) => {
   popupEditProfile.dataLoading(true);
-  api.editProfile({name: nameInput.value, about: descInput.value})
+  api.editProfile({name: inputData['username'], about: inputData['description']})
     .then((user) => {
       userInfo.setUserInfo(user.name, user.about);
       userInfo.updateUserInfo();
@@ -89,6 +86,17 @@ const handleProfileFormSubmit = () => {
       popupEditProfile.dataLoading(false);
     });
 }
+
+
+const cardList = new Section(
+  {
+  items: [],
+  renderer: (item) => {
+    const card = createCard(item);
+    cardList.addItem(card);
+  }
+  }, cardContainer
+)
 
 // создание карточек
 function createCard(item) {
@@ -105,19 +113,11 @@ function createCard(item) {
 }
 
 // добавление новых карточек через форму
-const addToContainer = () => {
+const addToContainer = (inputData) => {
   popupAddCards.dataLoading(true);
-  api.addCards({name: inputPlace.value, link: inputSource.value})
-    .then((dataFromServer) => {
-      const cardSingle = new Section(
-        {items: dataFromServer,
-        renderer: (item) => {
-          const card = createCard(item);
-          cardSingle.addItem(card);
-        }
-        }, cardContainer
-      )
-      cardSingle.renderItem();
+  api.addCards({name: inputData['title'], link: inputData['link']})
+    .then((datacard) => {
+      cardList.renderItem(datacard);
       popupAddCards.closePopup();
     })
     .catch((err) => {
@@ -181,6 +181,7 @@ profileAddCardValidation.enableValidation();
 const changeAvatarValidation = new FormValidator(enableValidationConfig, formChangeAvatar);
 changeAvatarValidation.enableValidation();
 
+
 // ЗАПРОС К СЕРВЕРУ
 api.getAllInfo()
   .then(([cards, user]) => {
@@ -190,16 +191,7 @@ api.getAllInfo()
     userInfo.updateUserAvatar();
     userId = user._id;
 
-    const cardList = new Section(
-      {
-      items: cards,
-      renderer: (item) => {
-        const card = createCard(item);
-        cardList.addItem(card);
-      }
-      }, cardContainer
-    )
-    cardList.renderItems();
+    cardList.renderItems(cards);
   })
   .catch((err) => {
     console.log(`Ошибка получения информации о пользователе или карточек: ${err}`)
