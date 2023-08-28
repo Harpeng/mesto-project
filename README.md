@@ -10,6 +10,11 @@
 * media queries
 * form layout
 * popup box
+* javaScript
+* webpack
+* validation
+* api
+* OOP-principles
 
 **Figma**
 
@@ -17,4 +22,4 @@
 
 **Ссылка на проект**
 
-* [Ссылка на проект](https://harpeng.github.io/mesto-project/) 
+* [Проект - Место](https://harpeng.github.io/mesto-project/) 
